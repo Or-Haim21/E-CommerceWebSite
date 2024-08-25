@@ -16,12 +16,11 @@ const UserModeComp = () => {
   const location = useLocation();
   const currentPath = location.pathname;
 
-  const currentTab = currentPath.includes('order') // <-- Marked change: Updated tab logic
-    ? 'order'
+  const currentTab = currentPath.includes('MyAccount') 
+    ? 'MyAccount'
     : currentPath.includes('myOrders')
     ? 'myOrders'
-    : 'MyAccount';
-  console.log('test', currentTab);
+    : 'order';
 
   return (
     <div>

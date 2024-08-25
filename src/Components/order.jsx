@@ -12,8 +12,8 @@ const OrderComp = () => {
                 display: 'flex',
                 flexDirection: 'row',
                 justifyContent: 'space-between',
-                height: '100vh', // Ensures the height of the box fills the viewport height
-                gap: 1, // Reduces the space between the components
+                height: '100vh', 
+                gap: 1, 
             }}
         >
             {/* Cart on the left */}

@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 
 
 const CategoryComp = ({ category }) => {
+
     return (
         <div>
             <Box
@@ -21,7 +22,7 @@ const CategoryComp = ({ category }) => {
                 }}
             >
                 <Typography component="h1" variant="h6" sx={{ margin: 2 }}>
-                    {category}
+                    {category.name}
                 </Typography>
                 <Button
                     variant="contained"

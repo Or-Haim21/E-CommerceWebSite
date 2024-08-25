@@ -5,27 +5,27 @@ import Box from '@mui/material/Box'
 import CategoryComp from './category'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
+import { useSelector } from 'react-redux';
 
 const CategoriesComp = () => {
 
-    const categories = ['Toys', 'Clothing', 'Electronic'];
+    //const categories = ['Toys', 'Clothing', 'Electronic'];
+    const categories = useSelector((state) => state.categories)
 
     return (
-        <Container component="main" sx={{ width: '700px' }}>
-            <Typography component="h4" variant="h4" sx={{ margin: 2 }}>
-                Categories
-            </Typography>
+        <Container component="main" sx={{ width: '100%'}}>
             <Box
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    boxShadow: '0 0 3px',
-                    backgroundColor: '#f8f9f9',
                     padding: '20px',
-                    borderRadius: '5px',
+                    border: 'none',
                 }}
             >
+                <Typography component="h4" variant="h4" sx={{ marginBottom: 4 }}>
+                    <strong>Categories</strong>
+                </Typography>
                 {
                     categories.map((category, index) => {
                         return (

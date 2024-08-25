@@ -1,31 +1,31 @@
 import { Box, Button, Container, Typography } from '@mui/material'
 import React from 'react'
 import ProductComp from './product';
+import { useSelector } from 'react-redux';
 
 const ManageProductsComp = () => {
 
-  const products = [{id:'PC', title:'PC'}, {id:'Toy', title:'Toy'}, {id:'TShirt',title:'T shirt'}];
+  const products = useSelector((state) => state.products);
+  const categories = useSelector((state) => state.categories);
 
   return (
-    <Container component="main" sx={{ width: '1500px' }}>
+    <Container component="main" sx={{ width: '100%' }}>
       <Box
         sx={{
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          boxShadow: '0 0 3px',
-          backgroundColor: '#f8f9f9',
           padding: '20px',
-          borderRadius: '5px',
+          Radius: 'none',
         }}
       >
-        <Typography component="h4" variant="h4" sx={{ margin: 2 }}>
-          Products
+        <Typography component="h4" variant="h4" sx={{ marginBottom: 4 }}>
+          <strong>Products</strong>
         </Typography>
         {
           products.map((product) => {
             return (
-              <ProductComp key={product.id} title={product.title} idSuffix={product.id} />
+              <ProductComp key={product.id} product={product} categories={categories} />
             )
           })
         }

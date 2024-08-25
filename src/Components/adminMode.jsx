@@ -1,28 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { Tabs, Tab, Box, Typography } from '@mui/material';
 
+
+
 const AdminModeComp = () => {
   const location = useLocation();
-  const currentTab = location.pathname.split('/').pop() || 'categories';
+  const currentPath = location.pathname;
+;
+
+
+  // Determine the current tab based on the route
+  const currentTab = currentPath.includes('manageProducts')
+    ? 'manageProducts'
+    : currentPath.includes('statistics')
+    ? 'statistics'
+    : currentPath.includes('customers')
+    ? 'customers'
+    : 'categories'; // Default to categories
 
   return (
     <div>
       <Box sx={{ marginBottom: 4, borderBottom: 1, borderColor: 'divider' }}>
-        <Typography component="h6" variant="h4" sx={{ margin: 2 }}>
-          Hello Admin 
+        <Typography component="h5" variant="h5" sx={{ margin: 2 }}>
+          Hello Admin
         </Typography>
         <Tabs
           value={currentTab}
           aria-label="admin tabs"
           centered
-          sx={{ 
+          sx={{
             '& .MuiTab-root': {
-              minWidth: 120, 
-              marginX: 2, 
+              minWidth: 120,
+              marginX: 2,
             },
             '& .MuiTab-root:last-child': {
-              marginX: 0, 
+              marginX: 0,
             }
           }}
         >
@@ -56,7 +69,9 @@ const AdminModeComp = () => {
           />
         </Tabs>
       </Box>
-      <Outlet /> 
+      
+      {/* Render the content of the selected tab */}
+      <Outlet />
     </div>
   );
 };
