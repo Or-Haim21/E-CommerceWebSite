@@ -1,10 +1,13 @@
 import { Box, Drawer } from '@mui/material';
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import ProductsViewComp from './productsView';
 import CartComp from './cart';
 
 const OrderComp = () => {
 
+    const location = useLocation();
+    const { currentUser } = location.state || {};
 
     return (
         <Box

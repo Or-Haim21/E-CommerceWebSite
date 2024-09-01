@@ -14,52 +14,53 @@ const CategoryComp = ({ category }) => {
                     display: 'flex',
                     flexDirection: 'row',
                     alignItems: 'center',
+                    justifyContent: 'space-between',
                     boxShadow: '0 0 2px',
                     backgroundColor: '#f8f9f9',
                     padding: '5px',
                     borderRadius: '5px',
-                    marginBottom: 1,
+                    marginBottom: 2,
                 }}
             >
-                <Typography component="h1" variant="h6" sx={{ margin: 2 }}>
+                <Typography component="h5" variant="h5" sx={{ margin: 2 }}>
                     {category.name}
                 </Typography>
-                <Button
-                    variant="contained"
-                    sx={{
-                        mr: 1,
-                        mt: 2,
-                        mb: 2,
-                        maxWidth: '50px',
-                        backgroundColor: '#d5dbdb',
-                        color: 'black',
-                        fontSize: '60%',
-                        '&:hover': {
-                            backgroundColor: '#a9a9a9',
-                            color: 'white',
-                        },
-                    }}
-                >
-                    Update
-                </Button>
+                <Box>
+                    <Button
+                        variant="contained"
+                        sx={{
 
-                <Button
-                    variant="contained"
-                    sx={{
-                        mt: 2,
-                        mb: 2,
-                        maxWidth: '50px',
-                        backgroundColor: '#d5dbdb',
-                        color: 'black',
-                        fontSize: '60%',
-                        '&:hover': {
-                            backgroundColor: '#a9a9a9',
-                            color: 'white',
-                        },
-                    }}
-                >
-                    Remove
-                </Button>
+                            maxWidth: '50px',
+                            marginRight: '10px',
+                            backgroundColor: '#d5dbdb',
+                            color: 'black',
+                            fontSize: '60%',
+                            '&:hover': {
+                                backgroundColor: '#a9a9a9',
+                                color: 'white',
+                            },
+                        }}
+                    >
+                        Update
+                    </Button>
+
+                    <Button
+                        variant="contained"
+                        sx={{
+                            maxWidth: '50px',
+                            marginRight: '10px',
+                            backgroundColor: '#d5dbdb',
+                            color: 'black',
+                            fontSize: '60%',
+                            '&:hover': {
+                                backgroundColor: '#a9a9a9',
+                                color: 'white',
+                            },
+                        }}
+                    >
+                        Remove
+                    </Button>
+                </Box>
             </Box>
         </div>
     )

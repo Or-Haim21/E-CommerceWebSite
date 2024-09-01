@@ -19,28 +19,31 @@ import RegistrationComp from './Components/registration';
 const App = () => {
   const dispatch = useDispatch();
 
+
   useEffect(() => {
-    const loadCollectionData = (collectionName, dataType) => {
+    const loadCollectionData = (collectionName, actionType) => {
       const q = query(collection(db, collectionName));
       onSnapshot(q, (querySnapshot) => {
         const data = querySnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
-        dispatch({ type: 'LOAD', dataType, payload: data });
+        dispatch({ type: actionType, payload: data });
       });
     };
-
-    loadCollectionData('Users', 'users');
-    loadCollectionData('Categories', 'categories');
-    loadCollectionData('Products', 'products');
-    loadCollectionData('Orders', 'orders');
+  
+    loadCollectionData('Users', 'LOAD_USERS');
+    loadCollectionData('Categories', 'LOAD_CATEGORIES');
+    loadCollectionData('Products', 'LOAD_PRODUCTS');
+    loadCollectionData('Orders', 'LOAD_ORDERS');
   }, [dispatch]);
+    
 
   return (
     <div>
       <Routes>
         <Route path='/' element={<LoginComp />} />
+        <Route path='/registration' element={<RegistrationComp/>} />
         <Route path='/adminMode' element={<AdminModeComp />}>
           <Route index element={<CategoriesComp />} />
           <Route path='categories' element={<CategoriesComp />} />

@@ -21,8 +21,8 @@ const AdminModeComp = () => {
 
   return (
     <div>
-      <Box sx={{ marginBottom: 4, borderBottom: 1, borderColor: 'divider' }}>
-        <Typography component="h5" variant="h5" sx={{ margin: 2 }}>
+      <Box sx={{ marginBottom: 4, borderBottom: 1, borderColor: 'divider', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+        <Typography component="h5" variant="h5" sx={{ margin: 1 }}>
           Hello Admin
         </Typography>
         <Tabs

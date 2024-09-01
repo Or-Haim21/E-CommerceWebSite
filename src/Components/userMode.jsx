@@ -8,10 +8,12 @@ const UserModeComp = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const { username } = useParams();
   const users = useSelector((state) => state.users);
+  
   useEffect(() => {
     const user = users.find((user) => user.username === username);
     setCurrentUser(user);
   }, [username,users])
+
 
   const location = useLocation();
   const currentPath = location.pathname;
@@ -21,12 +23,12 @@ const UserModeComp = () => {
     : currentPath.includes('myOrders')
     ? 'myOrders'
     : 'order';
-
+    
   return (
     <div>
-      <Box sx={{ marginBottom: 4, borderBottom: 1, borderColor: 'divider' }}>
-        <Typography component="h6" variant="h4" sx={{ margin: 2 }}>
-          Hello User
+      <Box sx={{ marginBottom: 4, borderBottom: 1, borderColor: 'divider',  display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+        <Typography component="h5" variant="h5" sx={{ margin: 1 }}>
+          Hello {username}
         </Typography>
         <Tabs
           value={currentTab}
@@ -34,7 +36,7 @@ const UserModeComp = () => {
           centered
           sx={{
             '& .MuiTab-root': {
-              minWidth: 120,
+              Width: 120,
               marginX: 2,
             },
             '& .MuiTab-root:last-child': {
@@ -45,6 +47,7 @@ const UserModeComp = () => {
           <Tab
             component={Link}
             to="order"
+            state={{ currentUser }}
             value="order"
             label="Products"
             sx={{ textTransform: 'none', fontSize: '16px' }}
@@ -52,6 +55,7 @@ const UserModeComp = () => {
           <Tab
             component={Link}
             to="myOrders"
+            state={{ currentUser }}
             value="myOrders"
             label="My Orders"
             sx={{ textTransform: 'none', fontSize: '16px' }}
@@ -59,6 +63,7 @@ const UserModeComp = () => {
           <Tab
             component={Link}
             to="MyAccount"
+            state={{ currentUser }}
             value="MyAccount"
             label="My Account"
             sx={{ textTransform: 'none', fontSize: '16px' }}

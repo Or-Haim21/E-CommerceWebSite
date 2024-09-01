@@ -1,7 +1,8 @@
-import {useState} from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import db from '../firebase';
 import { addDoc, collection, deleteDoc, doc } from 'firebase/firestore';
+
 
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
@@ -19,60 +20,67 @@ const LoginComp = () => {
 
     const [loginDetails, setLoginDetails] = useState({});
     const navigate = useNavigate();
-    const users = useSelector((state)=>state.users);
-
+    const users = useSelector((state) => state.users);
+    useEffect(()=>{
+        console.log('Login', users);
+    },[users]);
     const handleSubmit = (e) => {
         e.preventDefault();
         const user = users.find(user => user.username === loginDetails.username);
 
 
-        if(user.password === loginDetails.password){
-            if(user.type === 'admin'){
-                navigate('/adminMode');
-            }
-            else if(user.type === 'customer'){
+        if (user !== undefined) {
 
-                navigate(`/userMode/${username}`);
+            if (user.password === loginDetails.password) {
+                if (user.type === 'admin') {
+                    navigate('/adminMode');
+                }
+                else{
+                    navigate(`/userMode/${user.username}`);
+                }
+            }
+            else {
+                alert('The username or password is incorrect!');
             }
         }
         else {
-            alert('Incorrect password!');
+            alert('The user is not exist');
         }
     }
 
-  return (
+    return (
 
         <Container component="main" maxWidth="sm" >
             <Box
-            sx={{
-                marginTop: 8,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                boxShadow:'0 0 3px',
-                backgroundColor:'#f8f9f9',
-                padding:'10px', 
-                borderRadius:'20px'
+                sx={{
+                    marginTop: 8,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    boxShadow: '0 0 3px',
+                    backgroundColor: '#f8f9f9',
+                    padding: '10px',
+                    borderRadius: '20px'
 
-            }}
+                }}
             >
-                
-                <Typography component="h1" variant="h6" sx={{ marginTop:2}}>
-                    Next Generation E-Commerce 
+
+                <Typography component="h1" variant="h6" sx={{ marginTop: 2 }}>
+                    Next Generation E-Commerce
                 </Typography>
                 <Box
                     sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    marginTop: 2,
+                        display: 'flex',
+                        alignItems: 'center',
+                        marginTop: 2,
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: '#1976D3'}}>
-                    <LockOutlinedIcon />
+                    <Avatar sx={{ m: 1, bgcolor: '#1976D3' }}>
+                        <LockOutlinedIcon />
                     </Avatar>
                 </Box>
-                
-                <Box component="form"  onSubmit={handleSubmit}  noValidate sx={{ mt: 1 }}>
+
+                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                     <TextField
                         margin="normal"
                         fullWidth
@@ -82,7 +90,7 @@ const LoginComp = () => {
                         autoComplete="username"
                         autoFocus
 
-                        onChange={e=>setLoginDetails({...loginDetails, username: e.target.value})}
+                        onChange={e => setLoginDetails({ ...loginDetails, username: e.target.value })}
                     />
 
                     <TextField
@@ -94,7 +102,7 @@ const LoginComp = () => {
                         id="password"
                         autoComplete="current-password"
 
-                        onChange={e=>setLoginDetails({...loginDetails, password: e.target.value})}
+                        onChange={e => setLoginDetails({ ...loginDetails, password: e.target.value })}
                     />
 
                     <Button
@@ -103,15 +111,15 @@ const LoginComp = () => {
                         variant="contained"
                         sx={{ mt: 3, mb: 2 }}
                     >
-                         Log In
+                        Log In
                     </Button>
                 </Box>
-                <Link href="#" variant="body2" sx={{marginBottom:2}}>
-                  {"Don't have an account? Sign Up"}
+                <Link href="./registration"  variant="body2" sx={{ marginBottom: 2 }}>
+                    {"Don't have an account? Sign Up"}
                 </Link>
             </Box>
         </Container>
-  )
+    )
 }
 
 export default LoginComp
