@@ -1,4 +1,4 @@
-import { Box, Button, Container, Typography } from '@mui/material'
+import { Box, Button, Container, Grid, Typography } from '@mui/material'
 import React from 'react'
 import ProductComp from './product';
 import { useSelector } from 'react-redux';
@@ -22,20 +22,20 @@ const ManageProductsComp = () => {
         <Typography component="h4" variant="h4" sx={{ marginBottom: 4 }}>
           <strong>Products</strong>
         </Typography>
-        {
-          products.map((product) => {
-            return (
-              <ProductComp key={product.id} product={product} categories={categories} />
-            )
-          })
-        }
+        <Grid container spacing={2} sx={{ width: '130%' }}>
+          {products.map((product, index) => (
+            <Grid item xs={12} sm={6} md={6} key={product.title} sx={{ px: 0.2 }}>
+              <ProductComp key={index} product={product} categories={categories} />
+            </Grid>
+          ))}
+        </Grid>
 
         <Button
           variant="contained"
         >
           Add New
         </Button>
-        </Box>
+      </Box>
     </Container>
   )
 }

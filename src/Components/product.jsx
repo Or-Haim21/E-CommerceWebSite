@@ -166,7 +166,7 @@ const ProductComp = ({ product, categories }) => {
               <InputLabel shrink htmlFor={`usersBuy-${product.id}`} sx={{ fontSize: '20px' }}>
                 <strong>Bought By:</strong>
               </InputLabel>
-              <TableComp headers={usersBuy.headers} data={usersBuy.data} columnsTypes={usersBuy.columnsTypes} />
+              <TableComp id={`usersBuy-${product.id}`} headers={usersBuy.headers} data={usersBuy.data} columnsTypes={usersBuy.columnsTypes} />
             </Box>
           </Box>
         </Box>

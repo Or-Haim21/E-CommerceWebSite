@@ -92,8 +92,8 @@ const UserModeComp = () => {
             />
           </Tabs>
           <Button
-            variant="contained"
-            sx={{ height: '30px', width: '40px', fontSize: '12px' }}
+            variant="text"
+            sx={{ height: '30px', width: '40px', fontSize: '12px', marginRight:'10px'}}
             onClick={handleLogout}
           >
             Logout

@@ -84,7 +84,7 @@ const AdminModeComp = () => {
             />
           </Tabs>
           <Button
-            variant="contained"
+            variant="text"
             sx={{ height: '30px', width: '40px', fontSize: '12px' }}
             onClick={handleLogout}
           >
