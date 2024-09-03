@@ -25,11 +25,11 @@ const ItemComp = ({ product }) => {
                 alignItems: 'center',
             }}
         >
-            <Card sx={{ boxShadow: '10', width: '300px' }}>
+            <Card sx={{ boxShadow: '10', width: '400px' }}>
                 <CardMedia
                     component="img"
-                    height="300"
-                    image={product.img}
+                    height="450px"
+                    image={product.linkToPic}
                     alt={product.title}
                 />
                 <CardContent>
@@ -42,8 +42,6 @@ const ItemComp = ({ product }) => {
                             flexDirection: 'row',
                             alignItems: 'center',
                             justifyContent: 'space-between',
-                            mt: 2,
-                            mb: 2,
                         }}
                     >
                         <Box
@@ -82,28 +80,30 @@ const ItemComp = ({ product }) => {
                             justifyContent: 'space-evenly',
                             alignItems: 'center',
                         }}>
-                        <IconButton 
+                        <IconButton
                             aria-label="remove"
                             onClick={handleRemove}
                             sx={{
                                 color: 'primary.main',
                                 '&:hover': {
-                                  color: '#9e9e9e',
+                                    color: '#9e9e9e',
                                 },
-                              }}
+                            }}
                         >
                             <RemoveCircleIcon />
                         </IconButton>
-                        <strong>{count}</strong>
-                        <IconButton 
+                        <Typography variant="body1" color="text.primary">
+                            <strong>{count}</strong>
+                        </Typography>
+                        <IconButton
                             aria-label="add"
                             onClick={handleAdd}
                             sx={{
                                 color: 'primary.main',
                                 '&:hover': {
-                                  color: '#9e9e9e',
+                                    color: '#9e9e9e',
                                 },
-                              }}
+                            }}
                         >
                             <AddCircleIcon />
                         </IconButton>

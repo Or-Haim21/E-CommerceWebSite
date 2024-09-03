@@ -94,7 +94,7 @@ const AdminModeComp = () => {
       </Box>
 
       {/* Render the content of the selected tab */}
-      <Outlet />
+      <Outlet />  
     </div>
   );
 };

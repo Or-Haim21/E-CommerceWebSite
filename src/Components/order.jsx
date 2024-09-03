@@ -1,11 +1,10 @@
-import { Box, Drawer } from '@mui/material';
+import { Box } from '@mui/material';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import ProductsViewComp from './productsView';
 import CartComp from './cart';
 
 const OrderComp = () => {
-
     const location = useLocation();
     const { currentUser } = location.state || {};
 
@@ -14,9 +13,7 @@ const OrderComp = () => {
             sx={{
                 display: 'flex',
                 flexDirection: 'row',
-                justifyContent: 'space-between',
-                height: '100vh', 
-                gap: 1, 
+                width: '100%', // Ensure full width
             }}
         >
             {/* Cart on the left */}
@@ -24,7 +21,7 @@ const OrderComp = () => {
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
-                    maxWidth: '33%', // Restrict Cart to one-third width
+                    width: '21%', // Reduced width to give more space to ProductsViewComp
                 }}
             >
                 <CartComp />
@@ -33,12 +30,12 @@ const OrderComp = () => {
             {/* Products view on the right */}
             <Box
                 sx={{
-                    flexGrow: 2,
                     display: 'flex',
                     flexDirection: 'column',
+                    flexGrow: 1, // Ensure ProductsViewComp takes up the remaining space
                 }}
             >
-                    <ProductsViewComp />
+                <ProductsViewComp />
             </Box>
         </Box>
     );

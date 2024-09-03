@@ -1,13 +1,36 @@
-import { Box, Button, Container, Typography } from '@mui/material'
-import React from 'react'
+import { Box, Button, Container, Typography, IconButton } from '@mui/material';
+import React, { useState } from 'react';
 import ItemInCartComp from './itemInCart';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 
 const CartComp = () => {
+  const [isContentVisible, setIsContentVisible] = useState(false);
 
-  const items = [{ title: 'T-Shirt', quantity: 3, price: 10 }, { title: 'Jeans', quantity: 2, price: 15 }, { title: 'Shoes', quantity: 1, price: 60 }];
+  const toggleContentVisibility = () => {
+    setIsContentVisible((prevState) => !prevState);
+  };
+
+  const items = [
+    { title: 'T-Shirt', quantity: 3, price: 10 },
+    { title: 'Jeans', quantity: 2, price: 15 },
+    { title: 'Shoes', quantity: 1, price: 60 },
+    { title: 'Shoes', quantity: 1, price: 60 },
+    { title: 'Shoes', quantity: 1, price: 60 },
+    { title: 'Shoes', quantity: 1, price: 60 },
+    { title: 'Shoes', quantity: 1, price: 60 },
+    { title: 'Shoes', quantity: 1, price: 60 },
+    { title: 'Shoes', quantity: 1, price: 60 },
+    { title: 'Shoes', quantity: 1, price: 60 },
+    { title: 'Shoes', quantity: 1, price: 60 },
+    { title: 'Shoes', quantity: 1, price: 60 },
+    { title: 'Shoes', quantity: 1, price: 60 }
+
+  ];
 
   return (
-    <Container component="main" sx={{ width: '500px' }}>
+    <Container component="main" sx={{ width: '400px' }}>
       <Box
         sx={{
           display: 'flex',
@@ -19,38 +42,55 @@ const CartComp = () => {
           borderRadius: '5px',
         }}
       >
-        <Typography component="h5" variant="h4" >
-          Cart
-        </Typography>
         <Box
           sx={{
             display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'flex-start',
-            marginTop:'20px',
-            marginBottom:'20px',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            width: '100%',
           }}
         >
-          {
-            items.map((item, index) => {
-              return (
-                item.quantity > 0 && <ItemInCartComp key={index} product={item} />
-              )
-            })
-          }
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <ShoppingCartCheckoutIcon sx={{ marginRight: '10px' }} />
+            <Typography component="h5" variant="h5">
+              Cart
+            </Typography>
+          </Box>
+          <IconButton onClick={toggleContentVisibility}>
+            {isContentVisible ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+          </IconButton>
         </Box>
-        <Typography component="h5" variant="h6" >
-          Total: $
-        </Typography>
-        <Button
-          variant="contained"
-          sx={{marginTop:'5px'}}
-        >
-          Order
-        </Button>
+
+        {/* Conditionally render the cart contents */}
+        {isContentVisible && (
+          <>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                marginTop: '20px',
+                marginBottom: '20px',
+              }}
+            >
+              {items.map((item, index) => (
+                item.quantity > 0 && <ItemInCartComp key={index} product={item} />
+              ))}
+            </Box>
+            <Typography component="h5" variant="h6">
+              Total: ${items.reduce((total, item) => total + item.quantity * item.price, 0)}
+            </Typography>
+            <Button
+              variant="contained"
+              sx={{ marginTop: '5px' }}
+            >
+              Order
+            </Button>
+          </>
+        )}
       </Box>
     </Container>
-  )
-}
+  );
+};
 
-export default CartComp
+export default CartComp;
