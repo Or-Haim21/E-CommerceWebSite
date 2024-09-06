@@ -1,15 +1,20 @@
+import React from 'react';
 import { Box, Button, Container, MenuItem, Select, Slider, Stack, TextField, Typography } from '@mui/material';
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
+const FilterItemsComp = ({ filterCriteria, onFilterChange }) => {
+    const categories = useSelector((state) => state.categories);
 
-const FilterItemsComp = () => {
-    const [priceValue, setPriceValue] = useState(); 
-    const categories = useSelector((state) => state.categories)
+    const handleCategoryChange = (event) => {
+        onFilterChange({ category: event.target.value });
+    };
 
+    const handlePriceChange = (event, newValue) => {
+        onFilterChange({ price: newValue });
+    };
 
-    const handleChange = (event, newValue) => {
-        setPriceValue(newValue); // Update the state with the new value
+    const handleTitleChange = (event) => {
+        onFilterChange({ title: event.target.value });
     };
 
     return (
@@ -19,12 +24,12 @@ const FilterItemsComp = () => {
                     display: 'flex',
                     flexDirection: 'row',
                     alignItems: 'center',
-                    justifyContent: 'center', // Center the content
+                    justifyContent: 'center',
                     backgroundColor: '#EAEAEA',
                     padding: '30px',
                     borderRadius: '5px',
-                    width: '100%', // Set to 100% to match the parent width
-                    maxWidth: '800px', // Maximum width to ensure it doesn’t stretch too much
+                    width: '100%',
+                    maxWidth: '800px',
                 }}
             >
                 <Typography variant="body2" color="text.secondary" sx={{ paddingRight: '5px' }}>
@@ -44,24 +49,22 @@ const FilterItemsComp = () => {
                     </Typography>
                     <Select
                         id="category"
-                        defaultValue={'All'}
+                        value={filterCriteria.category}
+                        onChange={handleCategoryChange}
                         sx={{
                             '& .MuiOutlinedInput-root': {
                                 '&.Mui-focused fieldset': {
-                                    borderColor: 'pink', // Border color when focused
+                                    borderColor: 'pink',
                                 },
                             },
                             width: '110px',
                             height: '25px',
                         }}
                     >
-                        {/* Defualt value*/}
                         <MenuItem value={'All'}>All</MenuItem>
-                        {
-                            categories.map(category => {
-                                return <MenuItem key={category.id} value={category.name}>{category.name}</MenuItem>
-                            })
-                        }
+                        {categories.map(category => (
+                            <MenuItem key={category.id} value={category.name}>{category.name}</MenuItem>
+                        ))}
                     </Select>
                 </Box>
 
@@ -79,29 +82,28 @@ const FilterItemsComp = () => {
                     </Typography>
                     <Stack spacing={2} direction="row" sx={{ width: '150px' }} alignItems="center">
                         <Slider
-                            aria-label="Price"
-                            value={priceValue}
-                            onChange={handleChange}
-                            valueLabelDisplay="auto" 
-                            min={0} 
+                            value={filterCriteria.price}
+                            onChange={handlePriceChange}
+                            valueLabelDisplay="auto"
+                            min={0}
                             max={100}
                             sx={{
-                                color: '#188de1', 
+                                color: '#188de1',
                                 '& .MuiSlider-thumb': {
-                                    backgroundColor: '#188de1', 
-                                    border: '2px solid #188de1', 
+                                    backgroundColor: '#188de1',
+                                    border: '2px solid #188de1',
                                 },
                                 '& .MuiSlider-track': {
-                                    backgroundColor: '#188de1', 
+                                    backgroundColor: '#188de1',
                                 },
                                 '& .MuiSlider-rail': {
-                                    backgroundColor: '#188de1', 
+                                    backgroundColor: '#188de1',
                                 },
                             }}
                         />
                     </Stack>
                     <Typography variant="body2" color="text.secondary" sx={{ paddingLeft: '12px', width: '20px' }}>
-                        {priceValue}$
+                        {filterCriteria.price}$
                     </Typography>
                 </Box>
 
@@ -119,18 +121,20 @@ const FilterItemsComp = () => {
                     <TextField
                         id="title"
                         name="title"
+                        value={filterCriteria.title}
+                        onChange={handleTitleChange}
                         sx={{
                             '& .MuiOutlinedInput-root': {
                                 '&.Mui-focused fieldset': {
-                                    borderColor: '#FFD55F', // Border color when the field is focused
+                                    borderColor: '#FFD55F',
                                 }
                             },
                         }}
                         inputProps={{ sx: { height: '1px', width: '100px' } }}
-                    //onChange={e => setLoginDetails({ ...loginDetails, username: e.target.value })}
                     />
                 </Box>
                 <Button
+                    onClick={() => onFilterChange({ category: 'All', price: 100, title: '' })}
                     variant="contained"
                     sx={{
                         height: '30px',
