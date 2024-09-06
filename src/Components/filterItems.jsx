@@ -25,7 +25,6 @@ const FilterItemsComp = ({ filterCriteria, onFilterChange }) => {
                     flexDirection: 'row',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    backgroundColor: '#EAEAEA',
                     padding: '30px',
                     borderRadius: '5px',
                     width: '100%',
@@ -135,21 +134,24 @@ const FilterItemsComp = ({ filterCriteria, onFilterChange }) => {
                 </Box>
                 <Button
                     onClick={() => onFilterChange({ category: 'All', price: 100, title: '' })}
-                    variant="contained"
+                    variant="outlined"
                     sx={{
                         height: '30px',
                         width: '40px',
                         fontSize: '12px',
-                        backgroundColor: '#E5BD4C',
+                        borderColor: '#E5BD4C',
+                        color: '#E5BD4C',
+                        border: '1px solid',
                         '&:hover': {
-                            backgroundColor: '#FFD55F',
-                        }
+                            borderColor: '#E5BD4C',
+                            border: '1px solid',
+                        },
                     }}
                 >
-                    Clear
-                </Button>
-            </Box>
-        </Container>
+                Clear
+            </Button>
+        </Box>
+        </Container >
     );
 };
 

@@ -1,11 +1,10 @@
 import { Box, IconButton, Typography } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import { useState } from 'react';
 
-const ItemInCartComp = ({ product, onDeleteItem}) => {
+const ItemInCartComp = ({ product, onDeleteItem }) => {
     const [quantity, setQuantity] = useState(product.quantity);
     const [totalPrice, setTotalPrice] = useState(product.quantity * product.price);
 
@@ -21,26 +20,35 @@ const ItemInCartComp = ({ product, onDeleteItem}) => {
         }
     };
 
-    const handleDeleteItem = () =>{
-        onDeleteItem(product); 
-    }
+    const handleDeleteItem = () => {
+        onDeleteItem(product);
+    };
 
     return (
         <Box
             sx={{
                 display: 'flex',
                 flexDirection: 'row',
-                justifyContent: 'space-between',
                 alignItems: 'center',
                 backgroundColor: '#e5e7e9',
                 borderRadius: '10px',
-                paddingLeft: '5px',
-                marginBottom: '5px',
+                padding: '10px',
+                marginBottom: '10px',
                 width: '100%',
-                color: '#191919', 
+                color: '#191919',
+                boxSizing: 'border-box', // Ensure padding and border are included in the width
             }}
         >
-            <Typography variant="body1">
+            <Typography
+                variant="body2"
+                sx={{
+                    flexGrow: 1,
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    marginRight: '10px',
+                }}
+            >
                 {product.title}
             </Typography>
 
@@ -48,8 +56,8 @@ const ItemInCartComp = ({ product, onDeleteItem}) => {
                 sx={{
                     display: 'flex',
                     flexDirection: 'row',
-                    justifyContent: 'space-evenly',
                     alignItems: 'center',
+                    marginRight: '10px',
                 }}
             >
                 <IconButton
@@ -64,7 +72,7 @@ const ItemInCartComp = ({ product, onDeleteItem}) => {
                 >
                     <RemoveCircleIcon />
                 </IconButton>
-                <Typography variant="body1" sx={{ marginRight: '5px' }}>
+                <Typography variant="body1" sx={{ marginX: '5px' }}>
                     {quantity}
                 </Typography>
                 <IconButton
@@ -79,15 +87,18 @@ const ItemInCartComp = ({ product, onDeleteItem}) => {
                 >
                     <AddCircleIcon />
                 </IconButton>
-                <Typography variant="body1" sx={{ marginRight: '5px' }}>
-                    units -
-                </Typography>
             </Box>
-            <Box>
-                <Typography variant="body1">    
-                    Total: ${totalPrice}
-                </Typography>
-            </Box>
+
+            <Typography
+                variant="body1"
+                sx={{
+                    marginRight: '10px',
+                    fontSize: '13px'  // Change the font size here
+                }}
+            >
+                Total: ${totalPrice}
+            </Typography>
+
             <IconButton
                 aria-label="delete"
                 onClick={handleDeleteItem}
@@ -95,7 +106,7 @@ const ItemInCartComp = ({ product, onDeleteItem}) => {
                     color: '#F24949',
                 }}
             >
-                <DeleteForeverOutlinedIcon fontSize='small'/>
+                <DeleteForeverOutlinedIcon fontSize='small' />
             </IconButton>
         </Box>
     );

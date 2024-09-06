@@ -29,7 +29,6 @@ const ProductsViewComp = ({ products, onAddToCart }) => {
                 flexDirection: 'column',
                 alignItems: 'center',
                 boxShadow: '0 0 3px',
-                backgroundColor: '#EAEAEA',
                 borderRadius: '5px',
                 paddingBottom: '30px',
                 paddingLeft: '10px',

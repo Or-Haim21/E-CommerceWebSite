@@ -5,38 +5,22 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 
-const CartComp = ({items}) => {
+const CartComp = ({ items }) => {
   const [isContentVisible, setIsContentVisible] = useState(false);
-  const [itemsCart,setItemsCart] = useState();
+  const [itemsCart, setItemsCart] = useState([]);
 
   useEffect(() => {
     setItemsCart(items);
-  },[items])
+  }, [items]);
 
   const toggleContentVisibility = () => {
     setIsContentVisible((prevState) => !prevState);
   };
 
   const handleDeleteItem = (itemToDelete) => {
-    const updatedItems  = itemsCart.filter(item => item.title !== itemToDelete.title);
-    setItemsCart(updatedItems );
-  }
-
-  // const items = [
-  //   { title: 'T-Shirt', quantity: 3, price: 10 },
-  //   { title: 'Jeans', quantity: 2, price: 15 },
-  //   { title: 'Shoes', quantity: 1, price: 60 },
-  //   { title: 'Shoes', quantity: 1, price: 60 },
-  //   { title: 'Shoes', quantity: 1, price: 60 },
-  //   { title: 'Shoes', quantity: 1, price: 60 },
-  //   { title: 'Shoes', quantity: 1, price: 60 },
-  //   { title: 'Shoes', quantity: 1, price: 60 },
-  //   { title: 'Shoes', quantity: 1, price: 60 },
-  //   { title: 'Shoes', quantity: 1, price: 60 },
-
-  //   { title: 'Shoes', quantity: 1, price: 60 }
-
-  // ];
+    const updatedItems = itemsCart.filter(item => item.title !== itemToDelete.title);
+    setItemsCart(updatedItems);
+  };
 
   return (
     <Container component="main" sx={{ width: '450px' }}>
@@ -46,7 +30,6 @@ const CartComp = ({items}) => {
           flexDirection: 'column',
           alignItems: 'flex-start',
           boxShadow: '0 0 3px',
-          backgroundColor: '#EAEAEA',
           padding: '15px',
           borderRadius: '5px',
           color: '#191919',
@@ -78,13 +61,13 @@ const CartComp = ({items}) => {
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'flex-start',
+                alignItems: 'stretch', // Ensure children stretch to the container width
                 marginTop: '20px',
                 marginBottom: '20px',
               }}
             >
               {itemsCart.map((item, index) => (
-                item.quantity > 0 && <ItemInCartComp key={index} product={item} onDeleteItem={handleDeleteItem}/>
+                item.quantity > 0 && <ItemInCartComp key={index} product={item} onDeleteItem={handleDeleteItem} />
               ))}
             </Box>
             <Typography component="h5" variant="h6">
@@ -94,7 +77,7 @@ const CartComp = ({items}) => {
               variant="contained"
               sx={{
                 marginTop: '5px',
-                width:'30%',
+                width: '30%',
                 backgroundColor: '#E5BD4C',
                 '&:hover': {
                   backgroundColor: '#FFD55F',
