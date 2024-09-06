@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
-import { Tabs, Tab, Box, Typography, Button } from '@mui/material';
+import { Tabs, Tab, Box, Typography, IconButton, Tooltip, Backdrop } from '@mui/material';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const UserModeComp = () => {
   const navigate = useNavigate();
@@ -13,8 +14,7 @@ const UserModeComp = () => {
   useEffect(() => {
     const user = users.find((user) => user.username === username);
     setCurrentUser(user);
-  }, [username, users])
-
+  }, [username, users]);
 
   const location = useLocation();
   const currentPath = location.pathname;
@@ -27,10 +27,10 @@ const UserModeComp = () => {
 
   const handleLogout = () => {
     navigate('/');
-  }
+  };
 
   return (
-    <div>
+    <Box backgroundColor="#FFFFFF">
       <Box
         sx={{
           marginBottom: 4,
@@ -39,7 +39,9 @@ const UserModeComp = () => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'flex-start',
-        }}>
+          backgroundColor: '#FFFFFF'
+        }}
+      >
         <Typography component="h5" variant="h5" sx={{ margin: 1 }}>
           Hello {username}
         </Typography>
@@ -56,14 +58,20 @@ const UserModeComp = () => {
             value={currentTab}
             aria-label="user tabs"
             centered
+            TabIndicatorProps={{
+              style: { backgroundColor: '#E5BD4C' },
+            }}
             sx={{
               '& .MuiTab-root': {
-                Width: 120,
+                width: 160,
                 marginX: 2,
+                color: '#191919',
               },
-              '& .MuiTab-root:last-child': {
-                marginX: 0,
-              }
+              '& .Mui-selected': {
+                color: '#E5BD4C !important', // Ensure selected tab color
+                fontSize: '20px',
+                fontWeight: 'bold',
+              },
             }}
           >
             <Tab
@@ -91,18 +99,23 @@ const UserModeComp = () => {
               sx={{ textTransform: 'none', fontSize: '16px' }}
             />
           </Tabs>
-          <Button
-            variant="text"
-            sx={{ height: '30px', width: '40px', fontSize: '12px', marginRight:'10px'}}
-            onClick={handleLogout}
-          >
-            Logout
-          </Button>
+
+          <Tooltip title="Logout" arrow>
+            <IconButton
+              color="inherit"
+              onClick={handleLogout}
+              aria-label="logout"
+            >
+              <LogoutIcon fontSize='medium' />
+            </IconButton>
+          </Tooltip>
         </Box>
       </Box>
-      <Outlet />
-    </div>
-  )
-}
+      <Box>
+        <Outlet />
+      </Box>
+    </Box>
+  );
+};
 
-export default UserModeComp
+export default UserModeComp;

@@ -29,15 +29,14 @@ const CategoryComp = ({ category }) => {
                     <Button
                         variant="contained"
                         sx={{
-
                             maxWidth: '50px',
                             marginRight: '10px',
-                            backgroundColor: '#d5dbdb',
-                            color: 'black',
                             fontSize: '60%',
+                            backgroundColor: '#18E19D',
                             '&:hover': {
-                                backgroundColor: '#a9a9a9',
-                                color: 'white',
+                                backgroundColor: 'white',
+                                borderColor: '#18E19D',
+                                color: '#18E19D'
                             },
                         }}
                     >
@@ -45,16 +44,17 @@ const CategoryComp = ({ category }) => {
                     </Button>
 
                     <Button
-                        variant="contained"
+                        variant="outlined"
                         sx={{
                             maxWidth: '50px',
                             marginRight: '10px',
-                            backgroundColor: '#d5dbdb',
-                            color: 'black',
                             fontSize: '60%',
+                            borderColor: '#F24949',
+                            color: '#F24949',
                             '&:hover': {
-                                backgroundColor: '#a9a9a9',
-                                color: 'white',
+                                borderColor: '#F24949',
+                                border: '2px solid',
+                                fontWeight: 'bold',
                             },
                         }}
                     >

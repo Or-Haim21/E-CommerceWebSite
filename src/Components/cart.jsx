@@ -1,45 +1,55 @@
 import { Box, Button, Container, Typography, IconButton } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ItemInCartComp from './itemInCart';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 
-const CartComp = () => {
+const CartComp = ({items}) => {
   const [isContentVisible, setIsContentVisible] = useState(false);
+  const [itemsCart,setItemsCart] = useState();
+
+  useEffect(() => {
+    setItemsCart(items);
+  },[items])
 
   const toggleContentVisibility = () => {
     setIsContentVisible((prevState) => !prevState);
   };
 
-  const items = [
-    { title: 'T-Shirt', quantity: 3, price: 10 },
-    { title: 'Jeans', quantity: 2, price: 15 },
-    { title: 'Shoes', quantity: 1, price: 60 },
-    { title: 'Shoes', quantity: 1, price: 60 },
-    { title: 'Shoes', quantity: 1, price: 60 },
-    { title: 'Shoes', quantity: 1, price: 60 },
-    { title: 'Shoes', quantity: 1, price: 60 },
-    { title: 'Shoes', quantity: 1, price: 60 },
-    { title: 'Shoes', quantity: 1, price: 60 },
-    { title: 'Shoes', quantity: 1, price: 60 },
-    { title: 'Shoes', quantity: 1, price: 60 },
-    { title: 'Shoes', quantity: 1, price: 60 },
-    { title: 'Shoes', quantity: 1, price: 60 }
+  const handleDeleteItem = (itemToDelete) => {
+    const updatedItems  = itemsCart.filter(item => item.title !== itemToDelete.title);
+    setItemsCart(updatedItems );
+  }
 
-  ];
+  // const items = [
+  //   { title: 'T-Shirt', quantity: 3, price: 10 },
+  //   { title: 'Jeans', quantity: 2, price: 15 },
+  //   { title: 'Shoes', quantity: 1, price: 60 },
+  //   { title: 'Shoes', quantity: 1, price: 60 },
+  //   { title: 'Shoes', quantity: 1, price: 60 },
+  //   { title: 'Shoes', quantity: 1, price: 60 },
+  //   { title: 'Shoes', quantity: 1, price: 60 },
+  //   { title: 'Shoes', quantity: 1, price: 60 },
+  //   { title: 'Shoes', quantity: 1, price: 60 },
+  //   { title: 'Shoes', quantity: 1, price: 60 },
+
+  //   { title: 'Shoes', quantity: 1, price: 60 }
+
+  // ];
 
   return (
-    <Container component="main" sx={{ width: '400px' }}>
+    <Container component="main" sx={{ width: '450px' }}>
       <Box
         sx={{
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'flex-start',
           boxShadow: '0 0 3px',
-          backgroundColor: '#f8f9f9',
+          backgroundColor: '#EAEAEA',
           padding: '15px',
           borderRadius: '5px',
+          color: '#191919',
         }}
       >
         <Box
@@ -51,8 +61,8 @@ const CartComp = () => {
           }}
         >
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <ShoppingCartCheckoutIcon sx={{ marginRight: '10px' }} />
-            <Typography component="h5" variant="h5">
+            <ShoppingCartCheckoutIcon sx={{ color: "#18E19D", marginRight: '10px' }} />
+            <Typography component="h5" variant="h5" color='#191919'>
               Cart
             </Typography>
           </Box>
@@ -73,8 +83,8 @@ const CartComp = () => {
                 marginBottom: '20px',
               }}
             >
-              {items.map((item, index) => (
-                item.quantity > 0 && <ItemInCartComp key={index} product={item} />
+              {itemsCart.map((item, index) => (
+                item.quantity > 0 && <ItemInCartComp key={index} product={item} onDeleteItem={handleDeleteItem}/>
               ))}
             </Box>
             <Typography component="h5" variant="h6">
@@ -82,7 +92,14 @@ const CartComp = () => {
             </Typography>
             <Button
               variant="contained"
-              sx={{ marginTop: '5px' }}
+              sx={{
+                marginTop: '5px',
+                width:'30%',
+                backgroundColor: '#E5BD4C',
+                '&:hover': {
+                  backgroundColor: '#FFD55F',
+                }
+              }}
             >
               Order
             </Button>

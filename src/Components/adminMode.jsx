@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import { Tabs, Tab, Box, Typography, Button } from '@mui/material';
+import { Tabs, Tab, Box, Typography, Button, Tooltip, IconButton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 
 
@@ -42,16 +43,22 @@ const AdminModeComp = () => {
         >
           <Tabs
             value={currentTab}
-            aria-label="admin tabs"
+            aria-label="user tabs"
             centered
+            TabIndicatorProps={{
+              style: { backgroundColor: '#E5BD4C' },
+            }}
             sx={{
               '& .MuiTab-root': {
-                minWidth: 120,
+                width: 160,
                 marginX: 2,
+                color: '#191919',
               },
-              '& .MuiTab-root:last-child': {
-                marginX: 0,
-              }
+              '& .Mui-selected': {
+                color: '#E5BD4C !important', // Ensure selected tab color
+                fontSize: '20px',
+                fontWeight: 'bold',
+              },
             }}
           >
             <Tab
@@ -83,13 +90,15 @@ const AdminModeComp = () => {
               sx={{ textTransform: 'none', fontSize: '16px' }}
             />
           </Tabs>
-          <Button
-            variant="text"
-            sx={{ height: '30px', width: '40px', fontSize: '12px' }}
-            onClick={handleLogout}
-          >
-            Logout
-          </Button>
+          <Tooltip title="Logout" arrow>
+            <IconButton
+              color="inherit"
+              onClick={handleLogout}
+              aria-label="logout"
+            >
+              <LogoutIcon fontSize='medium' />
+            </IconButton>
+          </Tooltip>
         </Box>
       </Box>
 

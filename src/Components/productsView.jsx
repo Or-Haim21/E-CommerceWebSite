@@ -2,12 +2,10 @@ import React from 'react';
 import { Box, Grid } from '@mui/material';
 import ItemComp from './item';
 import FilterItemsComp from './filterItems';
-import { useSelector } from 'react-redux';
 
 
-const ProductsViewComp = () => {
+const ProductsViewComp = ({products, onAddToCart }) => {
 
-    const products = useSelector((state) => state.products);
 
     return (
         <Box
@@ -16,24 +14,34 @@ const ProductsViewComp = () => {
                 flexDirection: 'column',
                 alignItems: 'center',
                 boxShadow: '0 0 3px',
-                backgroundColor: '#f8f9f9',
+                backgroundColor: '#EAEAEA',
                 borderRadius: '5px',
-                paddingBottom:'30px',
-                paddingLeft:'10px',
-                paddingRight:'10px',
-
-                width: '98%', // Ensure full width
+                paddingBottom: '30px',
+                paddingLeft: '10px',
+                paddingRight: '10px',
+                width: '98%',
+                height: '98%',
             }}
         >
-            <FilterItemsComp />
+            <Box
+                sx={{
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                }}
+            >
+                <FilterItemsComp />
+            </Box>
             <Grid container spacing={3}>
                 {products.map((product) => (
-                    <Grid item xs={12} sm={6} md={3 } key={product.title} >
-                        <ItemComp product={product} />
+                    <Grid item xs={12} sm={6} md={3} key={product.title}>
+                        <ItemComp product={product} onAddToCart={onAddToCart}/>
                     </Grid>
                 ))}
             </Grid>
         </Box>
+
+
     );
 }
 

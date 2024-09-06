@@ -16,23 +16,28 @@ const RegistrationComp = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [registrationDetails, setRegistrationDetails] = useState({});
+    const [registrationDetails, setRegistrationDetails] = useState({firstname:'', lastname:'', username:'',password:'',});
     const users = useSelector((state) => state.users);
 
     useEffect(() => {
-        console.log("Updated users array:", users); 
-    }, [users]); 
+        console.log("Updated users array:", users);
+    }, [users]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const user = users.find(user => user.username === registrationDetails.username);
+        if (registrationDetails.username === '' || registrationDetails.user === '') {
+            alert('Please enter username and password');
+        }
+        else {
+            const user = users.find(user => user.username === registrationDetails.username);
 
-        if (user === undefined) { // The username is free to use
-            dispatch({ type: 'ADD_NEW_USER', payload: registrationDetails });
-            alert('You registered successfully');
-            navigate('/');
-        } else {
-            alert('The username already exists!');
+            if (user === undefined) { // The username is free to use
+                dispatch({ type: 'ADD_NEW_USER', payload: registrationDetails });
+                alert('You registered successfully');
+                navigate('/');
+            } else {
+                alert('The username already exists!');
+            }
         }
     };
 
@@ -46,8 +51,9 @@ const RegistrationComp = () => {
                     alignItems: 'center',
                     boxShadow: '0 0 3px',
                     backgroundColor: '#f8f9f9',
-                    padding: '10px',
+                    padding: '20px',
                     borderRadius: '20px',
+                    color: '#191919'
                 }}
             >
                 <Typography component="h1" variant="h4" sx={{ marginTop: 2 }}>
@@ -60,7 +66,7 @@ const RegistrationComp = () => {
                         marginTop: 2,
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: '#1976D3' }}>
+                    <Avatar sx={{ m: 1, bgcolor: '#188de1' }}>
                         <LockOutlinedIcon />
                     </Avatar>
                 </Box>
@@ -74,6 +80,16 @@ const RegistrationComp = () => {
                         name="firstname"
                         autoComplete="firstname"
                         autoFocus
+                        sx={{
+                            '& .MuiInputLabel-root.Mui-focused': {
+                                color: '#191919',
+                            },
+                            '& .MuiOutlinedInput-root': {
+                                '&.Mui-focused fieldset': {
+                                    borderColor: '#FFD55F', 
+                                }
+                            },
+                        }}
                         onChange={e => setRegistrationDetails({ ...registrationDetails, firstname: e.target.value })}
                     />
 
@@ -84,6 +100,16 @@ const RegistrationComp = () => {
                         label="Last Name"
                         name="lastname"
                         autoComplete="lastname"
+                        sx={{
+                            '& .MuiInputLabel-root.Mui-focused': {
+                                color: '#191919',
+                            },
+                            '& .MuiOutlinedInput-root': {
+                                '&.Mui-focused fieldset': {
+                                    borderColor: '#FFD55F', // Border color when the field is focused
+                                }
+                            },
+                        }}
                         onChange={e => setRegistrationDetails({ ...registrationDetails, lastname: e.target.value })}
                     />
 
@@ -94,6 +120,16 @@ const RegistrationComp = () => {
                         label="Username"
                         name="username"
                         autoComplete="username"
+                        sx={{
+                            '& .MuiInputLabel-root.Mui-focused': {
+                                color: '#191919',
+                            },
+                            '& .MuiOutlinedInput-root': {
+                                '&.Mui-focused fieldset': {
+                                    borderColor: '#FFD55F', // Border color when the field is focused
+                                }
+                            },
+                        }}
                         onChange={e => setRegistrationDetails({ ...registrationDetails, username: e.target.value })}
                     />
 
@@ -105,24 +141,48 @@ const RegistrationComp = () => {
                         type="password"
                         id="password"
                         autoComplete="current-password"
+                        sx={{
+                            '& .MuiInputLabel-root.Mui-focused': {
+                                color: '#191919',
+                            },
+                            '& .MuiOutlinedInput-root': {
+                                '&.Mui-focused fieldset': {
+                                    borderColor: '#FFD55F', // Border color when the field is focused
+                                }
+                            },
+                        }}
                         onChange={e => setRegistrationDetails({ ...registrationDetails, password: e.target.value })}
                     />
 
                     <FormControlLabel
                         control={
                             <Checkbox
-                                color="primary"
+                                sx={{
+                                    '&.Mui-checked': {
+                                        color: '#18E19D',
+                                    },
+                                }}
                                 onChange={e => setRegistrationDetails({ ...registrationDetails, allowShare: e.target.checked })}
                             />
                         }
                         label="Allow others to see my orders"
                     />
 
-                    <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+                    <Button
+                        type="submit"
+                        fullWidth variant="contained"
+                        sx={{
+                            mt: 3,
+                            mb: 2,
+                            backgroundColor: '#E5BD4C',
+                            '&:hover': {
+                                backgroundColor: '#FFD55F',
+                            }
+                        }}>
                         Create
                     </Button>
                 </Box>
-                <Link href="./" variant="body2" sx={{ marginBottom: 2 }}>
+                <Link href="./" variant="body2" color='#191919' sx={{ marginBottom: 2 }}>
                     {'Already have an account? Log In'}
                 </Link>
             </Box>

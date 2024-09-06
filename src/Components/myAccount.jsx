@@ -36,9 +36,9 @@ const MyAccountComp = () => {
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    boxShadow: '0 0 1px',
+                    boxShadow: '0 0 3px',
                     backgroundColor: '#f8f9f9',
-                    padding: '20px',
+                    padding: '40px',
                     borderRadius: '20px'
                 }}
             >
@@ -55,7 +55,14 @@ const MyAccountComp = () => {
                             value={userData.firstName || ''}
                             inputProps={{ sx: { height: '5px' } }}
                             autoFocus
-                            onChange={e => setUserData({...userData, firstName: e.target.value})}
+                            sx={{
+                                '& .MuiOutlinedInput-root': {
+                                    '&.Mui-focused fieldset': {
+                                        borderColor: '#FFD55F', // Border color when the field is focused
+                                    }
+                                },
+                            }}
+                            onChange={e => setUserData({ ...userData, firstName: e.target.value })}
                         />
                     </Box>
 
@@ -69,7 +76,14 @@ const MyAccountComp = () => {
                             id="lastname"
                             name="lastname"
                             value={userData.lastName || ''}
-                            onChange={e => setUserData({...userData, lastName: e.target.value})}
+                            sx={{
+                                '& .MuiOutlinedInput-root': {
+                                    '&.Mui-focused fieldset': {
+                                        borderColor: '#FFD55F', // Border color when the field is focused
+                                    }
+                                },
+                            }}
+                            onChange={e => setUserData({ ...userData, lastName: e.target.value })}
                         />
                     </Box>
 
@@ -82,8 +96,15 @@ const MyAccountComp = () => {
                             inputProps={{ sx: { height: '5px' } }}
                             id="username"
                             name="username"
+                            sx={{
+                                '& .MuiOutlinedInput-root': {
+                                    '&.Mui-focused fieldset': {
+                                        borderColor: '#FFD55F', // Border color when the field is focused
+                                    }
+                                },
+                            }}
                             value={userData.username || ''}
-                            onChange={e => setUserData({...userData, username: e.target.value})}
+                            onChange={e => setUserData({ ...userData, username: e.target.value })}
                         />
                     </Box>
 
@@ -98,12 +119,28 @@ const MyAccountComp = () => {
                             type="password"
                             id="password"
                             value={userData.password || ''}
-                            onChange={e => setUserData({...userData, password: e.target.value})}
+                            sx={{
+                                '& .MuiOutlinedInput-root': {
+                                    '&.Mui-focused fieldset': {
+                                        borderColor: '#FFD55F', 
+                                    }
+                                },
+                            }}
+                            onChange={e => setUserData({ ...userData, password: e.target.value })}
                         />
                     </Box>
 
                     <FormControlLabel
-                        control={<Checkbox checked={userData.sharedOrders || false} color="primary" />}
+                        control={
+                            <Checkbox
+                                checked={userData.sharedOrders || false}
+                                sx={{
+                                    '&.Mui-checked': {
+                                        color: '#18E19D', 
+                                    },
+                                }}
+                            />
+                        }
                         onChange={e => setUserData({ ...userData, sharedOrders: e.target.checked })}
                         label="Allow others to see my orders"
                     />
@@ -112,7 +149,14 @@ const MyAccountComp = () => {
                         type="submit"
                         fullWidth
                         variant="contained"
-                        sx={{ mt: 3, mb: 2 }}
+                        sx={{
+                            mt: 3,
+                            mb: 2,
+                            backgroundColor: '#E5BD4C',
+                            '&:hover': {
+                                backgroundColor: '#FFD55F',
+                            }
+                        }}
                     >
                         Save
                     </Button>

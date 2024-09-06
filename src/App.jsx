@@ -15,6 +15,7 @@ import MyAccountComp from './Components/myAccount';
 import LoginComp from './Components/login';
 import StatisticComp from './Components/statistic';
 import RegistrationComp from './Components/registration';
+import { Box } from '@mui/material';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -40,7 +41,7 @@ const App = () => {
     
 
   return (
-    <div>
+    <Box>
       <Routes>
         <Route path='/' element={<LoginComp />} />
         <Route path='/registration' element={<RegistrationComp/>} />
@@ -58,7 +59,7 @@ const App = () => {
           <Route path='MyAccount' element={<MyAccountComp />} />
         </Route>
       </Routes>
-    </div>
+    </Box>
   );
 };
 

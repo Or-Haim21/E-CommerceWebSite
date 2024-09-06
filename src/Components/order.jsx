@@ -1,12 +1,20 @@
 import { Box } from '@mui/material';
-import React from 'react';
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import ProductsViewComp from './productsView';
 import CartComp from './cart';
+import { useSelector } from 'react-redux';
+
 
 const OrderComp = () => {
     const location = useLocation();
+    const products = useSelector((state) => state.products);
     const { currentUser } = location.state || {};
+
+    const [itemsInCart,setItemsInCart] = useState([]);
+    const handleAddToCart = (product) => {
+        setItemsInCart(prevItems => [...prevItems, product]);
+    };
 
     return (
         <Box
@@ -21,10 +29,10 @@ const OrderComp = () => {
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
-                    width: '21%', // Reduced width to give more space to ProductsViewComp
+                    width: '25%', // Reduced width to give more space to ProductsViewComp
                 }}
             >
-                <CartComp />
+                <CartComp items={itemsInCart}/>
             </Box>
 
             {/* Products view on the right */}
@@ -35,7 +43,7 @@ const OrderComp = () => {
                     flexGrow: 1, // Ensure ProductsViewComp takes up the remaining space
                 }}
             >
-                <ProductsViewComp />
+                <ProductsViewComp products={products} onAddToCart={handleAddToCart}/>
             </Box>
         </Box>
     );

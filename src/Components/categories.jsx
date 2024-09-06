@@ -13,7 +13,7 @@ const CategoriesComp = () => {
     const categories = useSelector((state) => state.categories)
 
     return (
-        <Container component="main" sx={{ width: '100%'}}>
+        <Container component="main" sx={{ width: '100%' }}>
             <Box
                 sx={{
                     display: 'flex',
@@ -53,7 +53,15 @@ const CategoriesComp = () => {
                     />
                     <Button
                         variant="contained"
-                        sx={{ mt: 3, mb: 2, width: '100px' }}
+                        sx={{
+                            mt: 3,
+                            mb: 2,
+                            width: '100px',
+                            backgroundColor: '#E5BD4C',
+                            '&:hover': {
+                                backgroundColor: '#FFD55F',
+                            }
+                        }}
                     >
                         Add
                     </Button>

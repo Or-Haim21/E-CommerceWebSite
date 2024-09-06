@@ -21,9 +21,9 @@ const LoginComp = () => {
     const [loginDetails, setLoginDetails] = useState({});
     const navigate = useNavigate();
     const users = useSelector((state) => state.users);
-    useEffect(()=>{
+    useEffect(() => {
         console.log('Login', users);
-    },[users]);
+    }, [users]);
     const handleSubmit = (e) => {
         e.preventDefault();
         const user = users.find(user => user.username === loginDetails.username);
@@ -35,7 +35,7 @@ const LoginComp = () => {
                 if (user.type === 'admin') {
                     navigate('/adminMode');
                 }
-                else{
+                else {
                     navigate(`/userMode/${user.username}`);
                 }
             }
@@ -59,13 +59,14 @@ const LoginComp = () => {
                     alignItems: 'center',
                     boxShadow: '0 0 3px',
                     backgroundColor: '#f8f9f9',
-                    padding: '10px',
-                    borderRadius: '20px'
+                    padding: '20px',
+                    borderRadius: '20px',
+                    color: '#191919'
 
                 }}
             >
 
-                <Typography component="h1" variant="h6" sx={{ marginTop: 2 }}>
+                <Typography component="h1" variant="h6" sx={{ marginTop: 2, }}>
                     Next Generation E-Commerce
                 </Typography>
                 <Box
@@ -75,7 +76,7 @@ const LoginComp = () => {
                         marginTop: 2,
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: '#1976D3' }}>
+                    <Avatar sx={{ m: 1, bgcolor: '#188de1' }}>
                         <LockOutlinedIcon />
                     </Avatar>
                 </Box>
@@ -89,6 +90,16 @@ const LoginComp = () => {
                         name="username"
                         autoComplete="username"
                         autoFocus
+                        sx={{
+                            '& .MuiInputLabel-root.Mui-focused': {
+                                color: '#191919', 
+                            },
+                            '& .MuiOutlinedInput-root': {
+                                '&.Mui-focused fieldset': {
+                                    borderColor: '#FFD55F', // Border color when the field is focused
+                                }
+                            },
+                        }}
 
                         onChange={e => setLoginDetails({ ...loginDetails, username: e.target.value })}
                     />
@@ -101,6 +112,16 @@ const LoginComp = () => {
                         type="password"
                         id="password"
                         autoComplete="current-password"
+                        sx={{
+                            '& .MuiInputLabel-root.Mui-focused': {
+                                color: '#191919', 
+                            },
+                            '& .MuiOutlinedInput-root': {
+                                '&.Mui-focused fieldset': {
+                                    borderColor: '#FFD55F', // Border color when the field is focused
+                                }
+                            },
+                        }}
 
                         onChange={e => setLoginDetails({ ...loginDetails, password: e.target.value })}
                     />
@@ -109,13 +130,20 @@ const LoginComp = () => {
                         type="submit"
                         fullWidth
                         variant="contained"
-                        sx={{ mt: 3, mb: 2 }}
+                        sx={{
+                            mt: 3,
+                            mb: 2,
+                            backgroundColor: '#E5BD4C',
+                            '&:hover': {
+                                backgroundColor: '#FFD55F',
+                            }
+                        }}
                     >
                         Log In
                     </Button>
                 </Box>
-                <Link href="./registration"  variant="body2" sx={{ marginBottom: 2 }}>
-                    {"Don't have an account? Sign Up"}
+                <Link href="./registration" variant="body2" color='#191919' sx={{ marginBottom: 2 }}>
+                    {"Don't have an account?Sign Up"}
                 </Link>
             </Box>
         </Container>
