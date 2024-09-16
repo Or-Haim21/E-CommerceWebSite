@@ -1,11 +1,22 @@
 import { Box, Button, Container, Grid, Typography } from '@mui/material';
 import React from 'react';
 import ProductComp from './product';
-import { useSelector } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
+
 
 const ManageProductsComp = () => {
+  
+  const dispatch = useDispatch();
   const products = useSelector((state) => state.products);
   const categories = useSelector((state) => state.categories);
+
+  const addNewProduct = (product) => {
+    dispatch({
+      type: 'ADD_NEW_PRODUCT',
+      payload: {id: uuidv4()}
+  });
+  }
 
   return (
     <Container component="main" sx={{ width: '100%' }}>
@@ -23,9 +34,9 @@ const ManageProductsComp = () => {
 
         <Box>
           <Grid container  sx={{ width: '100%' }}>
-            {products.map((product, index) => (
-              <Grid item xs={12} sm={6} md={6} key={product.title} >
-                <ProductComp key={index} product={product} categories={categories} />
+            {products.map((product) => (
+              <Grid item xs={12} sm={6} md={6} key={product.id} >
+                <ProductComp key={product.id} product={product} categories={categories} />
               </Grid>
             ))}
           </Grid>
@@ -40,6 +51,7 @@ const ManageProductsComp = () => {
               backgroundColor: '#FFD55F',
             },
           }}
+          onClick={addNewProduct}
         >
           Add New Product
         </Button>

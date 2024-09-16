@@ -1,8 +1,12 @@
 import { Container, Box, TextField, InputLabel, TextareaAutosize, Select, MenuItem, Button } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import TableComp from './table';
 
+
 const ProductComp = ({ product, categories }) => {
+  
+  const dispatch = useDispatch(); 
   const [productData, setProductData] = useState({
     title: '',
     category: '',
@@ -10,6 +14,13 @@ const ProductComp = ({ product, categories }) => {
     price: '',
     linkToPic: '',
   });
+
+  const handleSave = () => {
+    dispatch({
+      type: 'UPDATE_PRODUCT',
+      payload: productData
+  });
+  }
 
   useEffect(() => {
     setProductData(product);
@@ -94,6 +105,7 @@ const ProductComp = ({ product, categories }) => {
                 border: '1px solid',
               },
             }}
+            onClick={handleSave}
           >
             Save
           </Button>

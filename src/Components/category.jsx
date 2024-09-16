@@ -1,10 +1,34 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Box from '@mui/material/Box';
+import { useDispatch } from 'react-redux';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import { TextField } from '@mui/material';
 
 
 const CategoryComp = ({ category }) => {
+
+    const [updateMode, setUpdateMode] = useState(false);
+    const [categoryData,setCategoryData] = useState(category);
+    const dispatch = useDispatch(); 
+
+
+    const handleUpdate = () => {
+        if(updateMode){
+            dispatch({
+                type: 'UPDATE_CATEGORY',
+                payload: categoryData
+            });
+        }
+        setUpdateMode(!updateMode);
+    }
+
+    const handleRemove = () => {
+        dispatch({
+            type: 'REMOVE_CATEGORY',
+            payload: categoryData.id
+        });
+    }
 
     return (
         <div>
@@ -22,9 +46,21 @@ const CategoryComp = ({ category }) => {
                     marginBottom: 2,
                 }}
             >
-                <Typography component="h5" variant="h5" sx={{ margin: 2 }}>
-                    {category.name}
-                </Typography>
+                {
+                    !updateMode && <Typography component="h5" variant="h5" sx={{ margin: 2 }}>
+                        {categoryData.name}
+                    </Typography>
+                }
+                {
+                    updateMode && <TextField
+                        margin="normal"
+                        id="updateCategory"
+                        name="updateCategory"
+                        value={categoryData.name}
+                        sx={{  marginRight: 2 }}
+                    onChange={e => setCategoryData({...categoryData,name:e.target.value})}
+                    />
+                }
                 <Box>
                     <Button
                         variant="contained"
@@ -39,6 +75,7 @@ const CategoryComp = ({ category }) => {
                                 color: '#18E19D'
                             },
                         }}
+                        onClick={handleUpdate}
                     >
                         Update
                     </Button>
@@ -57,6 +94,7 @@ const CategoryComp = ({ category }) => {
                                 fontWeight: 'bold',
                             },
                         }}
+                        onClick={handleRemove}
                     >
                         Remove
                     </Button>

@@ -19,9 +19,6 @@ const RegistrationComp = () => {
     const [registrationDetails, setRegistrationDetails] = useState({firstname:'', lastname:'', username:'',password:'',});
     const users = useSelector((state) => state.users);
 
-    useEffect(() => {
-        console.log("Updated users array:", users);
-    }, [users]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -31,7 +28,7 @@ const RegistrationComp = () => {
         else {
             const user = users.find(user => user.username === registrationDetails.username);
 
-            if (user === undefined) { // The username is free to use
+            if (user === undefined) { // The username is available to use
                 dispatch({ type: 'ADD_NEW_USER', payload: registrationDetails });
                 alert('You registered successfully');
                 navigate('/');

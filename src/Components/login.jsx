@@ -21,9 +21,7 @@ const LoginComp = () => {
     const [loginDetails, setLoginDetails] = useState({});
     const navigate = useNavigate();
     const users = useSelector((state) => state.users);
-    useEffect(() => {
-        console.log('Login', users);
-    }, [users]);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const user = users.find(user => user.username === loginDetails.username);

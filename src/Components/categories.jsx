@@ -1,17 +1,29 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import CategoryComp from './category'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
+
 
 const CategoriesComp = () => {
 
-    //const categories = ['Toys', 'Clothing', 'Electronic'];
+    const dispatch = useDispatch();
     const categories = useSelector((state) => state.categories)
+    const [newCategory, setNewCategory] = useState('');
 
+    const addNewCategory = () => {
+        if (newCategory.trim() !== '') {
+            dispatch({
+                type: 'ADD_NEW_CATEGORY',
+                payload: {id: uuidv4(), name: newCategory}
+            });
+            setNewCategory('');
+        }
+    }
     return (
         <Container component="main" sx={{ width: '100%' }}>
             <Box
@@ -27,9 +39,9 @@ const CategoriesComp = () => {
                     <strong>Categories</strong>
                 </Typography>
                 {
-                    categories.map((category, index) => {
+                    categories.map((category) => {
                         return (
-                            <CategoryComp key={index} category={category} />
+                            <CategoryComp key={category.id} category={category} />
                         )
                     })
                 }
@@ -48,8 +60,9 @@ const CategoriesComp = () => {
                         label="Add new category"
                         name="newCategory"
                         autoComplete="newCategory"
+                        value={newCategory}
                         sx={{ width: '400px', marginRight: '16px' }}
-                    //onChange={}
+                        onChange={e => setNewCategory(e.target.value)}
                     />
                     <Button
                         variant="contained"
@@ -62,6 +75,7 @@ const CategoriesComp = () => {
                                 backgroundColor: '#FFD55F',
                             }
                         }}
+                        onClick={addNewCategory}
                     >
                         Add
                     </Button>
