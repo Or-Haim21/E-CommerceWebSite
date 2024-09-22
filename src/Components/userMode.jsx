@@ -30,7 +30,7 @@ const UserModeComp = () => {
   };
 
   return (
-    <Box backgroundColor="#FFFFFF">
+    <Box>
       <Box
         sx={{
           marginBottom: 4,
@@ -39,7 +39,7 @@ const UserModeComp = () => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'flex-start',
-          backgroundColor: '#FFFFFF'
+          backgroundColor: '#FFFFFF',
         }}
       >
         <Typography component="h5" variant="h5" sx={{ margin: 1 }}>

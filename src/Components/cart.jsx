@@ -5,21 +5,32 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 
-const CartComp = ({ items }) => {
-  const [isContentVisible, setIsContentVisible] = useState(false);
+const CartComp = ({ items, onRemoveFromCart, isContentVisible, setIsContentVisible }) => {
   const [itemsCart, setItemsCart] = useState([]);
 
   useEffect(() => {
     setItemsCart(items);
+
   }, [items]);
 
   const toggleContentVisibility = () => {
     setIsContentVisible((prevState) => !prevState);
   };
 
+
   const handleDeleteItem = (itemToDelete) => {
     const updatedItems = itemsCart.filter(item => item.title !== itemToDelete.title);
+    onRemoveFromCart(updatedItems);
     setItemsCart(updatedItems);
+    toggleContentVisibility();
+  };
+
+  const handleUpdateCart = (product, newQuantity) => {
+    const updatedItems = itemsCart.map(item =>
+      item.title === product.title ? { ...item, quantity: newQuantity } : item
+    );
+    setItemsCart(updatedItems);
+    onRemoveFromCart(updatedItems);
   };
 
   return (
@@ -67,11 +78,11 @@ const CartComp = ({ items }) => {
               }}
             >
               {itemsCart.map((item, index) => (
-                item.quantity > 0 && <ItemInCartComp key={index} product={item} onDeleteItem={handleDeleteItem} />
+                item.quantity > 0 && <ItemInCartComp key={index} product={item} onDeleteItem={handleDeleteItem} onUpdateCart={handleUpdateCart} />
               ))}
             </Box>
             <Typography component="h5" variant="h6">
-              Total: ${items.reduce((total, item) => total + item.quantity * item.price, 0)}
+              Total: ${itemsCart.reduce((total, item) => total + item.quantity * item.price, 0)}
             </Typography>
             <Button
               variant="contained"

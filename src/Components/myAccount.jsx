@@ -122,7 +122,7 @@ const MyAccountComp = () => {
                             sx={{
                                 '& .MuiOutlinedInput-root': {
                                     '&.Mui-focused fieldset': {
-                                        borderColor: '#FFD55F', 
+                                        borderColor: '#FFD55F',
                                     }
                                 },
                             }}
@@ -133,10 +133,11 @@ const MyAccountComp = () => {
                     <FormControlLabel
                         control={
                             <Checkbox
+                                id='AllowCheckbox'
                                 checked={userData.sharedOrders || false}
                                 sx={{
                                     '&.Mui-checked': {
-                                        color: '#18E19D', 
+                                        color: '#18E19D',
                                     },
                                 }}
                             />

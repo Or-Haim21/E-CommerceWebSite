@@ -23,8 +23,8 @@ const ItemComp = ({ product, onAddToCart }) => {
             ...product,
             quantity: count
         };
-        onAddToCart(itemToAdd); // ⬅️ Call onAddToCart with the product and quantity
-        setCount(0); // Reset count after adding to cart
+        onAddToCart(itemToAdd);
+        setCount(0); 
     }
 
     return (

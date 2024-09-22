@@ -2,21 +2,31 @@ import { Box, IconButton, Typography } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-const ItemInCartComp = ({ product, onDeleteItem }) => {
+const ItemInCartComp = ({ product, onDeleteItem, onUpdateCart }) => {
     const [quantity, setQuantity] = useState(product.quantity);
     const [totalPrice, setTotalPrice] = useState(product.quantity * product.price);
 
+    useEffect(() => {
+        setQuantity(product.quantity);
+        setTotalPrice(product.quantity * product.price);
+
+    }, [product]);
+
     const handleAdd = () => {
-        setQuantity(quantity + 1);
-        setTotalPrice(totalPrice + product.price);
+        const newQuantity = quantity + 1; 
+        setQuantity(newQuantity); 
+        setTotalPrice(newQuantity * product.price); 
+        onUpdateCart(product, newQuantity);
     };
 
     const handleRemove = () => {
-        if (quantity > 0 && totalPrice > 0) {
-            setQuantity(quantity - 1);
-            setTotalPrice(totalPrice - product.price);
+        if (quantity > 1) { 
+            const newQuantity = quantity - 1; 
+            setQuantity(newQuantity);
+            setTotalPrice(newQuantity * product.price);
+            onUpdateCart(product, newQuantity); 
         }
     };
 

@@ -50,6 +50,7 @@ const App = () => {
           <Route path='categories' element={<CategoriesComp />} />
           <Route path='manageProducts' element={<ManageProductsComp />} />
           <Route path='customers' element={<CustomersComp />} />
+          <Route path='statistics' element={<StatisticComp />} />
         </Route>
 
         <Route path='/userMode/:username' element={<UserModeComp />}>

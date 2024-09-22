@@ -11,10 +11,30 @@ const OrderComp = () => {
     const products = useSelector((state) => state.products);
     const { currentUser } = location.state || {};
 
-    const [itemsInCart,setItemsInCart] = useState([]);
+    const [itemsInCart, setItemsInCart] = useState([]);
+    const [isContentVisible, setIsContentVisible] = useState(false);
+
+
     const handleAddToCart = (product) => {
-        setItemsInCart(prevItems => [...prevItems, product]);
+        const existItem = itemsInCart.find(item => item.title === product.title);
+        if (existItem) {
+            setItemsInCart(prevItems =>
+                prevItems.map(item =>
+                    item.title === product.title
+                        ? { ...item, quantity: item.quantity + product.quantity } 
+                        : item
+                )
+            );         
+        }
+        else {
+            setItemsInCart(prevItems => [...prevItems, product]);
+        }
+
+        setIsContentVisible(true);
     };
+    const handleRemoveFromCart = (items) => {
+        setItemsInCart(items)
+    }
 
     return (
         <Box
@@ -32,7 +52,7 @@ const OrderComp = () => {
                     width: '25%', // Reduced width to give more space to ProductsViewComp
                 }}
             >
-                <CartComp items={itemsInCart}/>
+                <CartComp items={itemsInCart} onRemoveFromCart={handleRemoveFromCart} isContentVisible={isContentVisible} setIsContentVisible={setIsContentVisible} />
             </Box>
 
             {/* Products view on the right */}
@@ -43,7 +63,7 @@ const OrderComp = () => {
                     flexGrow: 1, // Ensure ProductsViewComp takes up the remaining space
                 }}
             >
-                <ProductsViewComp products={products} onAddToCart={handleAddToCart}/>
+                <ProductsViewComp products={products} onAddToCart={handleAddToCart} />
             </Box>
         </Box>
     );
