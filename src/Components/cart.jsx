@@ -5,7 +5,7 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 
-const CartComp = ({ items, onRemoveFromCart, isContentVisible, setIsContentVisible }) => {
+const CartComp = ({ items, onRemoveFromCart, isContentVisible, setIsContentVisible, handleAddNewOrders }) => {
   const [itemsCart, setItemsCart] = useState([]);
 
   useEffect(() => {
@@ -32,6 +32,10 @@ const CartComp = ({ items, onRemoveFromCart, isContentVisible, setIsContentVisib
     setItemsCart(updatedItems);
     onRemoveFromCart(updatedItems);
   };
+
+  const handleOnOrder = () => {
+    handleAddNewOrders(itemsCart);
+  }
 
   return (
     <Container component="main" sx={{ width: '450px' }}>
@@ -94,6 +98,7 @@ const CartComp = ({ items, onRemoveFromCart, isContentVisible, setIsContentVisib
                   backgroundColor: '#FFD55F',
                 }
               }}
+              onClick={handleOnOrder}
             >
               Order
             </Button>

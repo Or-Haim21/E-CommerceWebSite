@@ -14,6 +14,7 @@ import {
 const TableComp = ({ headers, data, columnsTypes }) => {
 
     const renderCellContent = (type, content) => {
+
         switch (type) {
             case 'string':
                 return <Typography variant="body2">{content}</Typography>;

@@ -18,18 +18,18 @@ const MyOrdersComp = () => {
         data:userOrders,
         columnsTypes: ['string', 'number', 'string', 'string'],
     }
-
+    
     useEffect(() => {
         if (currentUser) {
             const filteredOrders = ordersData
-                .filter(order => order.username === currentUser.username)
-                .map((order) => [
-                    order.product,
-                    order.qty, 
-                    order.totalPrice, 
-                    order.date
-                ]);
-    
+            .filter(order => order.username === currentUser.username)
+            .map((order) => [
+                order.product,
+                order.qty, 
+                order.totalPrice, 
+                order.date
+            ]);
+            
             setUserOrders(filteredOrders);
         }
     }, [currentUser, ordersData]);

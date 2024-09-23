@@ -11,6 +11,7 @@ const UserModeComp = () => {
   const { username } = useParams();
   const users = useSelector((state) => state.users);
 
+
   useEffect(() => {
     const user = users.find((user) => user.username === username);
     setCurrentUser(user);
@@ -28,6 +29,7 @@ const UserModeComp = () => {
   const handleLogout = () => {
     navigate('/');
   };
+
 
   return (
     <Box>
@@ -68,7 +70,7 @@ const UserModeComp = () => {
                 color: '#191919',
               },
               '& .Mui-selected': {
-                color: '#E5BD4C !important', // Ensure selected tab color
+                color: '#E5BD4C !important',
                 fontSize: '20px',
                 fontWeight: 'bold',
               },

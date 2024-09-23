@@ -53,7 +53,7 @@ const App = () => {
           <Route path='statistics' element={<StatisticComp />} />
         </Route>
 
-        <Route path='/userMode/:username' element={<UserModeComp />}>
+        <Route path='/userMode/:username/' element={<UserModeComp />}>
           <Route index element={<OrderComp />} />
           <Route path='order' element={<OrderComp />} />
           <Route path='myOrders' element={<MyOrdersComp />} />

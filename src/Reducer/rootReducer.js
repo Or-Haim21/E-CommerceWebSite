@@ -25,7 +25,8 @@ const ordersReducer = (state = initialOrdersState, action) => {
     switch (action.type) {
         case 'LOAD_ORDERS':
             return action.payload;
-
+        case 'ADD_NEW_ORDER':
+            return [...state, action.payload];
         default:
             return state;
     }
