@@ -28,13 +28,10 @@ const ProductsViewComp = ({ products, onAddToCart }) => {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                boxShadow: '0 0 3px',
-                borderRadius: '5px',
                 paddingBottom: '30px',
                 paddingLeft: '10px',
                 paddingRight: '10px',
-                width: '98%',
-                height: '98%',
+                width: '90%',
             }}
         >
             <Box

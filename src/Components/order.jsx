@@ -62,8 +62,10 @@ const OrderComp = () => {
         <Box
             sx={{
                 display: 'flex',
-                flexDirection: 'row',
-                width: '100%', 
+                justifyContent: 'center', 
+                alignItems: 'flex-start', 
+                width: '95%', 
+                margin: '0 auto', 
             }}
         >
             {/* Cart on the left */}
@@ -72,6 +74,8 @@ const OrderComp = () => {
                     display: 'flex',
                     flexDirection: 'column',
                     width: '25%', 
+                    marginTop:'120px',
+                    marginRight: '10px',
                 }}
             >
                 <CartComp items={itemsInCart} onRemoveFromCart={handleRemoveFromCart} isContentVisible={isContentVisible} setIsContentVisible={setIsContentVisible} handleAddNewOrders={handleAddNewOrders} />

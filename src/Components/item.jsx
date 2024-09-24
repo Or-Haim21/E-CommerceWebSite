@@ -24,7 +24,7 @@ const ItemComp = ({ product, onAddToCart }) => {
             quantity: count
         };
         onAddToCart(itemToAdd);
-        setCount(0); 
+        setCount(0);    
     }
 
     return (
@@ -38,7 +38,7 @@ const ItemComp = ({ product, onAddToCart }) => {
             <Card sx={{ boxShadow: '0px 0px 15px rgba(0, 0, 0, 0.5)', borderRadius: '20px', width: '350px', color: '#191919' }}>
                 <CardMedia
                     component="img"
-                    height="430px"
+                    height="350px"
                     image={product.linkToPic}
                     alt={product.title}
                 />
@@ -108,9 +108,9 @@ const ItemComp = ({ product, onAddToCart }) => {
                                     },
                                 }}
                             >
-                                <RemoveCircleOutlineOutlinedIcon fontSize='large'/>
+                                <RemoveCircleOutlineOutlinedIcon fontSize='medium'/>
                             </IconButton>
-                            <Typography variant="body1">
+                            <Typography variant="body1" paddingRight={1} paddingLeft={1} >
                                 <strong>{count}</strong>
                             </Typography>
                             <IconButton
@@ -123,7 +123,7 @@ const ItemComp = ({ product, onAddToCart }) => {
                                     },
                                 }}
                             >
-                                <AddCircleOutlineOutlinedIcon fontSize='large'/>
+                                <AddCircleOutlineOutlinedIcon fontSize='medium'/>
                             </IconButton>
                         </Box>
                         <Box>
