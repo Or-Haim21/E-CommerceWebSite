@@ -41,10 +41,9 @@ const UserModeComp = () => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'flex-start',
-          backgroundColor: '#FFFFFF',
         }}
       >
-        <Typography component="h5" variant="h5" sx={{ margin: 1 }}>
+        <Typography component="h5" variant="h5" sx={{ marginBottom: '100px', marginTop: '40px', marginLeft: '40px'}}>
           Hello {username}
         </Typography>
         <Box

@@ -25,7 +25,7 @@ const CategoriesComp = () => {
         }
     }
     return (
-        <Container component="main" sx={{ width: '100%' }}>
+        <Container component="main" sx={{ minWidth: '100%' }}>
             <Box
                 sx={{
                     display: 'flex',
@@ -33,6 +33,7 @@ const CategoriesComp = () => {
                     alignItems: 'center',
                     padding: '20px',
                     border: 'none',
+                    width:'100%'
                 }}
             >
                 <Typography component="h4" variant="h4" sx={{ marginBottom: 4 }}>
@@ -51,7 +52,8 @@ const CategoriesComp = () => {
                         display: 'flex',
                         flexDirection: 'row',
                         alignItems: 'center',
-                        justifyContent: 'space-between',
+                        justifyContent: 'center',
+                        width:'20%'
                     }}
                 >
                     <TextField
@@ -61,7 +63,7 @@ const CategoriesComp = () => {
                         name="newCategory"
                         autoComplete="newCategory"
                         value={newCategory}
-                        sx={{ width: '400px', marginRight: '16px' }}
+                        sx={{ minWidth: '100%', marginRight: '16px' }}
                         onChange={e => setNewCategory(e.target.value)}
                     />
                     <Button
@@ -69,7 +71,7 @@ const CategoriesComp = () => {
                         sx={{
                             mt: 3,
                             mb: 2,
-                            width: '100px',
+                            width: '100%',
                             backgroundColor: '#E5BD4C',
                             '&:hover': {
                                 backgroundColor: '#FFD55F',

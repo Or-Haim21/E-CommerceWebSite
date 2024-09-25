@@ -31,7 +31,7 @@ const ProductsViewComp = ({ products, onAddToCart }) => {
                 paddingBottom: '30px',
                 paddingLeft: '10px',
                 paddingRight: '10px',
-                width: '90%',
+                maxWidth: '100%',
             }}
         >
             <Box

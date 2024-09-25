@@ -38,7 +38,7 @@ const MyOrdersComp = () => {
 
   return (
     <div>
-        <Container component="main" sx={{width:'850px'}}>
+        <Container component="main" sx={{minWidth:'70%'}}>
             <Box
                 sx={{
                     display: 'flex',

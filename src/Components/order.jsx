@@ -63,9 +63,8 @@ const OrderComp = () => {
             sx={{
                 display: 'flex',
                 justifyContent: 'center', 
-                alignItems: 'flex-start', 
-                width: '95%', 
-                margin: '0 auto', 
+                alignItems: 'flex-start',
+                maxWidth:'95%', 
             }}
         >
             {/* Cart on the left */}
@@ -73,9 +72,8 @@ const OrderComp = () => {
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
-                    width: '25%', 
+                    wmaxWidth: '20%', 
                     marginTop:'120px',
-                    marginRight: '10px',
                 }}
             >
                 <CartComp items={itemsInCart} onRemoveFromCart={handleRemoveFromCart} isContentVisible={isContentVisible} setIsContentVisible={setIsContentVisible} handleAddNewOrders={handleAddNewOrders} />
@@ -86,7 +84,7 @@ const OrderComp = () => {
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
-                    flexGrow: 1, // Ensure ProductsViewComp takes up the remaining space
+                    maxWidth:'70%',
                 }}
             >
                 <ProductsViewComp products={products} onAddToCart={handleAddToCart} />

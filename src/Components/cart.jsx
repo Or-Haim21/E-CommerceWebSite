@@ -46,6 +46,7 @@ const CartComp = ({ items, onRemoveFromCart, isContentVisible, setIsContentVisib
           padding: '10px',
           borderRadius: '5px',
           color: '#191919',
+          maxWidth:'100%',
         }}
       >
         <Box

@@ -1,12 +1,22 @@
 import { Container, Box, TextField, InputLabel, TextareaAutosize, Select, MenuItem, Button } from '@mui/material';
+import { useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import TableComp from './table';
 
 
 const ProductComp = ({ product, categories }) => {
-  
-  const dispatch = useDispatch(); 
+
+  const orders = useSelector((state) => state.orders)
+    .filter(order => order.product === product.title)
+    .map(order => [
+      order.product,      // Replace with the correct field for user name
+      order.qty,  // Replace with the correct field for quantity
+      order.date       // Replace with the correct field for date
+    ]);
+  console.log("orders:", orders);
+  const dispatch = useDispatch();
+
   const [productData, setProductData] = useState({
     title: '',
     category: '',
@@ -15,25 +25,27 @@ const ProductComp = ({ product, categories }) => {
     linkToPic: '',
   });
 
+  const usersBuy = {
+    data: orders,
+    headers: ['Name', 'Qty', 'Date'],
+    columnsTypes: ['string', 'number', 'string'],
+  };
+
+
   const handleSave = () => {
     dispatch({
       type: 'UPDATE_PRODUCT',
       payload: productData
-  });
-  }
+    });
+  } 
 
   useEffect(() => {
     setProductData(product);
   }, [product]);
 
-  const usersBuy = {
-    data: [[], []],
-    headers: ['Name', 'Qty', 'Date'],
-    columnsTypes: ['string', 'number', 'string'],
-  };
 
   return (
-    <Container component="main" sx={{ maxWidth: '900px', marginBottom: '20px' }}>
+    <Container component="main" sx={{ marginBottom: '20px'}}>
       <Box
         sx={{
           display: 'flex',
@@ -96,7 +108,7 @@ const ProductComp = ({ product, categories }) => {
             variant="outlined"
             sx={{
               mt: 2,
-              width:'100px',
+              width: '100px',
               borderColor: '#E5BD4C',
               color: '#E5BD4C',
               border: '1px solid',

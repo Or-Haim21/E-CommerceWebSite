@@ -44,7 +44,7 @@ const CustomersComp = () => {
 
     return (
         <div>
-            <Container component="main" sx={{ width: '100%' }}>
+            <Container component="main" sx={{ minWidth: '80%' }}>
                 <Box
                     sx={{
                         display: 'flex',
