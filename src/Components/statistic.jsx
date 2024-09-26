@@ -1,48 +1,53 @@
-import React, { useEffect, useState } from 'react';
-import { PieChart, BarChart } from '@mui/x-charts';
-import { useSelector } from 'react-redux';
-import { Box, Typography, MenuItem, Select } from '@mui/material';
+import React, { useEffect, useState } from "react";
+import { PieChart, BarChart } from "@mui/x-charts";
+import { useSelector } from "react-redux";
+import { Box, Typography, MenuItem, Select } from "@mui/material";
 
 const StatisticComp = () => {
+  const colors = ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"];
   const orders = useSelector((state) => state.orders);
-  const users = useSelector((state) => state.users);
+  const users = useSelector((state) => state.users).filter(
+    (user) => user.type === "customer"
+  );
 
   const [productsPerCustomers, setProductsPerCustomers] = useState([]);
   const [products, setProducts] = useState([]);
-  const [selectedCustomer, setSelectedCustomer] = useState('All');
+  const [selectedCustomer, setSelectedCustomer] = useState("All");
+
 
   useEffect(() => {
-    const productsPerUser = users.map((user) => {
-      const userOrders = orders.filter((order) => order.username === user.username);
-      const productsList = [];
+    const selectedData =
+      selectedCustomer === "All"
+        ? orders
+        : orders.filter((order) => order.username === selectedCustomer);
 
-      userOrders.forEach((order) => {
-        const existingProduct = productsList.find((item) => item.label === order.product);
-        if (existingProduct) {
-          existingProduct.value += order.qty;
-        } else {
-          productsList.push({
-            id: productsList.length,
-            label: order.product,
-            value: order.qty,
-          });
-        }
-      });
+    const productList = [];
+    selectedData.forEach((order) => {
+      const existingProduct = productList.find(
+        (item) => item.category === order.product
+      );
 
-      return {
-        username: user.username,
-        products: productsList,
-      };
+      if (existingProduct) {
+        existingProduct.value += order.qty;
+      } else {
+        productList.push({
+          category: order.product,
+          value: order.qty,
+        });
+      }
     });
 
-    setProductsPerCustomers(productsPerUser);
-  }, [users, orders]);
+    setProductsPerCustomers(productList);
+
+  }, [selectedCustomer, products]);
 
   useEffect(() => {
     const productList = [];
 
     orders.forEach((order) => {
-      const existingProduct = productList.find((item) => item.label === order.product);
+      const existingProduct = productList.find(
+        (item) => item.label === order.product
+      );
 
       if (existingProduct) {
         existingProduct.value += order.qty;
@@ -58,43 +63,34 @@ const StatisticComp = () => {
     setProducts(productList);
   }, [orders]);
 
-  // Handle selection of customer from dropdown
-  const handleCustomerChange = (event) => {
-    setSelectedCustomer(event.target.value);
+  const handleCustomerChange = (e) => {
+    setSelectedCustomer(e.target.value);
   };
-
-  // Filter productsPerCustomers based on selected customer
-  const selectedData =
-    selectedCustomer === 'All'
-      ? products
-      : productsPerCustomers.find((cust) => cust.username === selectedCustomer)?.products || [];
-
-  // Ensure valid data for the BarChart
-  const validSelectedData = selectedData.filter(
-    (item) => item.label && item.value && !isNaN(item.value)
-  );
 
   return (
     <Box
       sx={{
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        marginTop: '100px',
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-around",
+        marginTop: "100px",
+        minWidth: "100%",
       }}
     >
       {/* Total Sold Products (Pie Chart) */}
       <Box
         sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: '#e5e7e9',
-          borderRadius: '10px',
-          width: '40%',
-          color: '#191919',
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#e5e7e9",
+          borderRadius: "10px",
+          width: "40%",
+          height: "500px",
+          paddingTop: "30px",
+          color: "#191919",
         }}
       >
         <Typography component="h5" variant="h5" sx={{ margin: 2 }}>
@@ -114,7 +110,7 @@ const StatisticComp = () => {
               cy: 180,
             },
           ]}
-          width={450}
+          width={450} 
           height={400}
         />
       </Box>
@@ -122,51 +118,52 @@ const StatisticComp = () => {
       {/* Products Quantity Per Customer (Bar Chart) */}
       <Box
         sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: '#e5e7e9',
-          borderRadius: '10px',
-          width: '40%',
-          color: '#191919',
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#e5e7e9",
+          borderRadius: "10px",
+          width: "40%",
+          height: "500px",
+          paddingTop: "30px",
+
+          color: "#191919",
         }}
       >
         <Typography component="h5" variant="h5" sx={{ margin: 2 }}>
           Products Quantity Per Customer
         </Typography>
 
-        {/* Dropdown to select customer */}
         <Select
           value={selectedCustomer}
           onChange={handleCustomerChange}
-          sx={{ marginBottom: 2, width: '200px' }}
+          sx={{ marginBottom: 2, width: "200px" }}
         >
           <MenuItem value="All">All</MenuItem>
-          {productsPerCustomers.map((customer) => (
-            <MenuItem key={customer.username} value={customer.username}>
-              {customer.username}
+          {users.map((user) => (
+            <MenuItem key={user.username} value={user.username}>
+              {user.username}
             </MenuItem>
           ))}
         </Select>
 
         {/* Bar Chart */}
-        {validSelectedData.length > 0 ? (
-          <BarChart
-            series={[
-              {
-                data: validSelectedData.map((item) => ({
-                  x: item.label,
-                  y: item.value,
-                })),
-              },
-            ]}
-            width={450}
-            height={400}
-          />
-        ) : (
-          <Typography>No data available for the selected customer</Typography>
-        )}
+        <BarChart
+          series={[
+            {
+              data: productsPerCustomers.map((item) => item.value), 
+            },
+          ]}
+          xAxis={[
+            {
+              data: productsPerCustomers.map((item) => item.category),
+              scaleType: "band",
+            },
+          ]}
+          width={450}
+          height={300}
+        />
       </Box>
     </Box>
   );

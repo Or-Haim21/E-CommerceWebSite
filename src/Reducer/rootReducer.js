@@ -41,7 +41,6 @@ const categoriesReducer = (state = initialCategoriesState, action) => {
             const updatedCategories = state.filter(category => category.id !== action.payload.id);
             return [...updatedCategories, action.payload];
         case 'ADD_NEW_CATEGORY':
-            //need to handle correctly the id from the firebase
             return [...state, action.payload];
         case 'REMOVE_CATEGORY':
             const filterCategories = state.filter(category => category.id !== action.payload);
@@ -66,7 +65,7 @@ const productsReducer = (state = initialProductsState, action) => {
     }
 };
 
-// Combine all reducers into a single rootReducer
+
 const rootReducer = combineReducers({
     users: usersReducer,
     orders: ordersReducer,
