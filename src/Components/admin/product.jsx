@@ -11,15 +11,15 @@ import {
 import { useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import TableComp from "./table";
+import TableComp from "../table";
 
 const ProductComp = ({ product, categories }) => {
   const orders = useSelector((state) => state.orders)
     .filter((order) => order.product === product.title)
     .map((order) => [
-      order.username, // Replace with the correct field for user name
-      order.qty, // Replace with the correct field for quantity
-      order.date, // Replace with the correct field for date
+      order.username, 
+      order.qty, 
+      order.date, 
     ]);
   const dispatch = useDispatch();
 

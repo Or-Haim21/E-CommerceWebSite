@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
-import TableComp from './table';
+import TableComp from '../table';
 import { Box, Typography, Container } from '@mui/material';
+import { useEffect } from 'react';
 
 const CustomersComp = () => {
     const orders = useSelector((state) => state.orders);
@@ -8,6 +9,8 @@ const CustomersComp = () => {
         headers: ['Product', 'Qty', 'Date'],
         columnsTypes: ['string', 'number', 'string'],
     };
+
+    const users = useSelector((state) => state.users);
 
     const customersData = useSelector((state) => state.users)
         .filter((user) => user.type === 'customer')
@@ -35,6 +38,9 @@ const CustomersComp = () => {
             ];
         });
 
+        useEffect(()=> {
+            console.log("users:", users);
+        },[users])
 
     const customers = {
         headers: ['Full Name', 'Joined At', 'Products Bought'],

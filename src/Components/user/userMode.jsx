@@ -32,7 +32,11 @@ const UserModeComp = () => {
 
 
   return (
-    <Box>
+    <Box
+      sx={{
+        minWidth:'100%',
+      }}
+    >
       <Box
         sx={{
           marginBottom: 4,
@@ -41,37 +45,46 @@ const UserModeComp = () => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'flex-start',
+          fullwidth: '100%',
+          height:'220px',
+          backgroundImage: 'url(/TopBanner.jpg)', 
+          backgroundSize: '100%',  
+          backgroundPosition: 'center', 
+          position: 'sticky', // Makes the box sticky
+          top: 0,             // Sticks the box to the top of the viewport
+          zIndex: 5,         // Ensures it stays on top of other content
+          backgroundColor: '#fff', // Add a background color so it's visible on scroll
+          
         }}
       >
-        <Typography component="h5" variant="h5" sx={{ marginBottom: '100px', marginTop: '40px', marginLeft: '40px'}}>
-          Hello {username}
-        </Typography>
+
         <Box
-          sx={{
+          sx={{ 
             display: 'flex',
             flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
+            alignItems: 'flex-end',
+            justifyContent: 'space-between',  
             width: '100%',
+            height: '100%'
           }}
         >
           <Tabs
             value={currentTab}
             aria-label="user tabs"
-            centered
+            centered  
             TabIndicatorProps={{
-              style: { backgroundColor: '#E5BD4C' },
+              style: { backgroundColor: '#E5BD4C', marginTop:'50px' },
             }}
             sx={{
               '& .MuiTab-root': {
                 width: 160,
                 marginX: 2,
                 color: '#191919',
+                paddingBottom: '0px',
               },
               '& .Mui-selected': {
                 color: '#E5BD4C !important',
-                fontSize: '20px',
-                fontWeight: 'bold',
+
               },
             }}
           >
@@ -104,6 +117,7 @@ const UserModeComp = () => {
           <Tooltip title="Logout" arrow>
             <IconButton
               color="inherit"
+              sx={{ color: 'white', marginRight:'10px'}}
               onClick={handleLogout}
               aria-label="logout"
             >

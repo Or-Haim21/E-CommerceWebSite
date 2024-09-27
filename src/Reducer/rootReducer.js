@@ -11,10 +11,11 @@ const usersReducer = (state = initialUsersState, action) => {
     switch (action.type) {
         case 'LOAD_USERS':
             return action.payload;
-
         case 'ADD_NEW_USER':
             return [...state, action.payload];
-
+        case 'UPDATE_USER':
+            const updatedUsers = state.filter(user => user.id !== action.payload.id);
+            return [...updatedUsers, action.payload];
         default:
             return state;
     }

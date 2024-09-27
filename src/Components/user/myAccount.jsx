@@ -1,23 +1,35 @@
-import { Box, Button, Checkbox, Container, Divider, FormControlLabel, InputLabel, TextField } from '@mui/material'
+import { Box, Button, Checkbox, Container, FormControlLabel, InputLabel, TextField, Typography, Tooltip } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-
 
 const MyAccountComp = () => {
     const location = useLocation();
-    const { currentUser } = location.state || {};
+    const dispatch = useDispatch();
+    let { currentUser } = location.state || {};
     const [userData, setUserData] = useState({});
     const users = useSelector((state) => state.users);
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (!userData.username || !userData.password) {
+            alert("Please fill all required fields: username and password.");
+            return;
+        }
+
+        dispatch({
+            type: "UPDATE_USER",
+            payload: userData,
+        });
+        alert("Your details have been saved successfully");
+    }
+
     useEffect(() => {
         if (currentUser) {
-            // Find the user object
-            const user = users.find(user => user.username === currentUser.username);
-            console.log(user);
+            const user = users.find(user => user.id === currentUser.id);
             if (user) {
-                // Set the user data
                 setUserData({
+                    id: user.id,
                     firstName: user.firstName,
                     lastName: user.lastName,
                     username: user.username,
@@ -42,8 +54,7 @@ const MyAccountComp = () => {
                     borderRadius: '20px'
                 }}
             >
-
-                <Box component="form" /* onSubmit={handleSubmit} */ noValidate sx={{ mt: 1 }}>
+                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                     <Box paddingBottom={'15px'}>
                         <InputLabel shrink htmlFor="firstname" style={{ fontSize: '20px' }}>
                             <strong>First Name:</strong>
@@ -58,7 +69,7 @@ const MyAccountComp = () => {
                             sx={{
                                 '& .MuiOutlinedInput-root': {
                                     '&.Mui-focused fieldset': {
-                                        borderColor: '#FFD55F', // Border color when the field is focused
+                                        borderColor: '#FFD55F',
                                     }
                                 },
                             }}
@@ -67,7 +78,7 @@ const MyAccountComp = () => {
                     </Box>
 
                     <Box paddingBottom={'15px'}>
-                        <InputLabel shrink htmlFor="lastname" style={{ fontSize: '20px', }}>
+                        <InputLabel shrink htmlFor="lastname" style={{ fontSize: '20px' }}>
                             <strong>Last Name:</strong>
                         </InputLabel>
                         <TextField
@@ -79,7 +90,7 @@ const MyAccountComp = () => {
                             sx={{
                                 '& .MuiOutlinedInput-root': {
                                     '&.Mui-focused fieldset': {
-                                        borderColor: '#FFD55F', // Border color when the field is focused
+                                        borderColor: '#FFD55F',
                                     }
                                 },
                             }}
@@ -91,21 +102,23 @@ const MyAccountComp = () => {
                         <InputLabel shrink htmlFor="username" style={{ fontSize: '20px' }}>
                             <strong>User Name:</strong>
                         </InputLabel>
-                        <TextField
-                            fullWidth
-                            inputProps={{ sx: { height: '5px' } }}
-                            id="username"
-                            name="username"
-                            sx={{
-                                '& .MuiOutlinedInput-root': {
-                                    '&.Mui-focused fieldset': {
-                                        borderColor: '#FFD55F', // Border color when the field is focused
-                                    }
-                                },
-                            }}
-                            value={userData.username || ''}
-                            onChange={e => setUserData({ ...userData, username: e.target.value })}
-                        />
+                        <Tooltip title="Username cannot be changed" placement="top" >
+                            <TextField
+                                fullWidth
+                                inputProps={{ sx: { height: '5px' } }}
+                                id="username"
+                                name="username"
+                                value={userData.username || ''}
+                                sx={{
+                                    '& .MuiOutlinedInput-root': {
+                                        '&.Mui-focused fieldset': {
+                                            borderColor: '#FFD55F',
+                                        }
+                                    },
+                                }}
+                                disabled 
+                            />
+                        </Tooltip>
                     </Box>
 
                     <Box paddingBottom={'15px'}>
@@ -167,4 +180,4 @@ const MyAccountComp = () => {
     )
 }
 
-export default MyAccountComp
+export default MyAccountComp;

@@ -4,16 +4,16 @@ import { useDispatch } from 'react-redux';
 import { collection, onSnapshot, query } from 'firebase/firestore';
 import db from './firebase';
 
-import CategoriesComp from './Components/categories';
-import ManageProductsComp from './Components/manageProducts';
-import CustomersComp from './Components/customers';
-import AdminModeComp from './Components/adminMode';
-import UserModeComp from './Components/userMode';
-import OrderComp from './Components/order';
-import MyOrdersComp from './Components/myOrders';
-import MyAccountComp from './Components/myAccount';
+import CategoriesComp from './Components/admin/categories';
+import ManageProductsComp from './Components/admin/manageProducts';
+import CustomersComp from './Components/admin/customers';
+import AdminModeComp from './Components/admin/adminMode';
+import UserModeComp from './Components/user/userMode';
+import OrderComp from './Components/user/order';
+import MyOrdersComp from './Components/user/myOrders';
+import MyAccountComp from './Components/user/myAccount';
 import LoginComp from './Components/login';
-import StatisticComp from './Components/statistic';
+import StatisticComp from './Components/admin/statistic'; 
 import RegistrationComp from './Components/registration';
 import { Box } from '@mui/material';
 
