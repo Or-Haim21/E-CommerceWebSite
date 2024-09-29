@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const OrderComp = () => {
 
-    console.log("OrderComp randring ")
+
 
     const dispatch = useDispatch();
     const location = useLocation();
@@ -31,8 +31,12 @@ const OrderComp = () => {
                 totalPrice: totalPrice,
                 username: username
             };
+            
+            let product = products.find(product => product.title === order.title);
+            product.inStock-=order.quantity;
+            dispatch({type:'UPDATE_PRODUCT', payload: product});
             dispatch({ type: 'ADD_NEW_ORDER', payload: newOrder });
-            console.log(newOrder);
+
         })
         setItemsInCart([]);
     }

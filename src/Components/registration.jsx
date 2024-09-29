@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { addDoc, collection } from "firebase/firestore";
+import db from "../firebase";
 import { useNavigate } from "react-router-dom";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
@@ -33,19 +35,18 @@ const RegistrationComp = () => {
     username: "",
     password: "",
     type: "customer",
+    shareOrders: false,
     joinedAt: "",
   });
   const users = useSelector((state) => state.users);
 
-  useEffect(()=> {
-    console.log("users:",users);
-  },[users])
 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (
       registrationDetails.username === "" ||
-      registrationDetails.user === ""
+      registrationDetails.password === ""
     ) {
       alert("Please enter username and password");
     } else {
@@ -60,6 +61,8 @@ const RegistrationComp = () => {
             ...registrationDetails,
             joinedAt: formattedDate,
           };
+          
+        await addDoc(collection(db, "Users"),newUser)
         dispatch({ type: "ADD_NEW_USER", payload: newUser });
         alert("You registered successfully");
         navigate("/");
@@ -213,7 +216,7 @@ const RegistrationComp = () => {
                 onChange={(e) =>
                   setRegistrationDetails({
                     ...registrationDetails,
-                    allowShare: e.target.checked,
+                    shareOrders: e.target.checked,
                   })
                 }
               />

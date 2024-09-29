@@ -38,9 +38,6 @@ const CustomersComp = () => {
             ];
         });
 
-        useEffect(()=> {
-            console.log("users:", users);
-        },[users])
 
     const customers = {
         headers: ['Full Name', 'Joined At', 'Products Bought'],
