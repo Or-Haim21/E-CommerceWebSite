@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import { addDoc, collection } from "firebase/firestore";
 import db from "../firebase";
 import { useNavigate } from "react-router-dom";
@@ -26,7 +26,6 @@ const getFormattedCurrentDate = () => {
 };
 
 const RegistrationComp = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [registrationDetails, setRegistrationDetails] = useState({
@@ -63,7 +62,6 @@ const RegistrationComp = () => {
           };
           
         await addDoc(collection(db, "Users"),newUser)
-        dispatch({ type: "ADD_NEW_USER", payload: newUser });
         alert("You registered successfully");
         navigate("/");
       } else {

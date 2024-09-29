@@ -1,6 +1,6 @@
 import {Container, Box, TextField, InputLabel, TextareaAutosize, Select, MenuItem, Button,} from "@mui/material";
 import { useSelector } from "react-redux";
-import { updateDoc, collection,doc, deleteDoc  } from "firebase/firestore";
+import { updateDoc,doc  } from "firebase/firestore";
 import db from "../../firebase";
 
 import React, { useEffect, useState } from "react";

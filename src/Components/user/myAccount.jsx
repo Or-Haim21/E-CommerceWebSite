@@ -10,6 +10,8 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { updateDoc, collection, doc } from "firebase/firestore";
+import db from "../../firebase";
 import { useLocation } from "react-router-dom";
 
 const MyAccountComp = () => {
@@ -35,17 +37,16 @@ const MyAccountComp = () => {
     }
   }, [users, currentUser]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!userData.username || !userData.password) {
       alert("Please fill all required fields: username and password.");
       return;
     }
 
-    dispatch({
-      type: "UPDATE_USER",
-      payload: userData,
-    });
+    const { id, ...dataToUpdate } = userData; 
+    const docRef = doc(db, "Users", id);
+    await updateDoc(docRef,dataToUpdate);
     alert("Your details have been saved successfully");
   };
 

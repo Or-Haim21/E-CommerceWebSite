@@ -18,10 +18,6 @@ const CategoryComp = ({ category }) => {
       const { id, ...dataToUpdate } = categoryData; 
       const docRef = doc(db, "Categories", id);
       await updateDoc(docRef, dataToUpdate);
-      // dispatch({
-      //   type: "UPDATE_CATEGORY",
-      //   payload: categoryData,
-      // });
     }
     setUpdateMode(!updateMode);
   };

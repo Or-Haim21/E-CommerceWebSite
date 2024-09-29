@@ -23,10 +23,6 @@ const CategoriesComp = () => {
                 name: name,
             }
             await addDoc(collection(db, "Categories"),newCategory)
-            // dispatch({
-            //     type: 'ADD_NEW_CATEGORY',
-            //     payload: newCategory
-            // });
             setName('');
         }
     }

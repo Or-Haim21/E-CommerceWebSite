@@ -1,14 +1,14 @@
 import { Box } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
+import { updateDoc, addDoc, collection, doc } from "firebase/firestore";
+import db from "../../firebase";
 import ProductsViewComp from './productsView';
 import CartComp from './cart';
 import { useDispatch, useSelector } from 'react-redux';
 
 
 const OrderComp = () => {
-
-
 
     const dispatch = useDispatch();
     const location = useLocation();
@@ -19,8 +19,8 @@ const OrderComp = () => {
     const [itemsInCart, setItemsInCart] = useState([]);
     const [isContentVisible, setIsContentVisible] = useState(false);
 
-    const handleAddNewOrders = (orders) => {
-        itemsInCart.forEach((order) => {
+    const handleAddNewOrders = async (orders) => {
+        itemsInCart.forEach(async (order) => {
             const date = new Date();
             const formattedDate = `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}`;
             const totalPrice = order.quantity * order.price;
@@ -34,8 +34,12 @@ const OrderComp = () => {
             
             let product = products.find(product => product.title === order.title);
             product.inStock-=order.quantity;
-            dispatch({type:'UPDATE_PRODUCT', payload: product});
-            dispatch({ type: 'ADD_NEW_ORDER', payload: newOrder });
+
+            const { id:prodId, ...prodToUpdate } = product; 
+            const prodDocRef = doc(db, "Products", prodId);
+            await updateDoc(prodDocRef,prodToUpdate);
+
+           await addDoc(collection(db, "Orders"),newOrder)  
 
         })
         setItemsInCart([]);
