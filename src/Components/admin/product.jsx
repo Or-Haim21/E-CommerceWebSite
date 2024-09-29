@@ -1,16 +1,9 @@
-import {
-  Container,
-  Box,
-  TextField,
-  InputLabel,
-  TextareaAutosize,
-  Select,
-  MenuItem,
-  Button,
-} from "@mui/material";
+import {Container, Box, TextField, InputLabel, TextareaAutosize, Select, MenuItem, Button,} from "@mui/material";
 import { useSelector } from "react-redux";
+import { updateDoc, collection,doc, deleteDoc  } from "firebase/firestore";
+import db from "../../firebase";
+
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import TableComp from "../table";
 
 const ProductComp = ({ product, categories }) => {
@@ -21,14 +14,14 @@ const ProductComp = ({ product, categories }) => {
       order.qty, 
       order.date, 
     ]);
-  const dispatch = useDispatch();
 
   const [productData, setProductData] = useState({
     title: "",
     category: "",
     description: "",
-    price: "",
+    price:  0,
     linkToPic: "",
+    inStock: 0,
   });
 
   const usersBuy = {
@@ -37,7 +30,7 @@ const ProductComp = ({ product, categories }) => {
     columnsTypes: ["string", "number", "string"],
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
 
     if (
       !productData.title ||
@@ -51,10 +44,10 @@ const ProductComp = ({ product, categories }) => {
       return; 
     }
 
-    dispatch({
-      type: "UPDATE_PRODUCT",
-      payload: productData,
-    });
+    const { id, ...dataToUpdate } = productData; 
+
+    const docRef = doc(db, "Products", id);
+      await updateDoc(docRef,dataToUpdate)
     alert (
       "The new product was saved successfully"
     )
@@ -183,9 +176,26 @@ const ProductComp = ({ product, categories }) => {
             type="number"
             id={`price-${product.id}`}
             name={`price-${product.id}`}
-            value={productData.price || ""}
+            value={productData.price || 0}
             onChange={(e) =>
-              setProductData({ ...productData, price: e.target.value })
+              setProductData({ ...productData, price: +e.target.value })
+            }
+            fullWidth
+          />
+          <InputLabel
+            shrink
+            htmlFor={`inStock-${product.id}`}
+            sx={{ fontSize: "20px", color: "#191919", paddingBottom: "8px", marginTop: "20px"}}
+          >
+            <strong>In Stock:</strong>
+          </InputLabel>
+          <TextField
+            type="number"
+            id={`inStock-${product.id}`}
+            name={`inStock-${product.id}`}
+            value={productData.inStock || 0}
+            onChange={(e) =>
+              setProductData({ ...productData, inStock: +e.target.value })
             }
             fullWidth
           />

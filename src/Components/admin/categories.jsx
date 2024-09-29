@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
+import { addDoc, collection } from "firebase/firestore";
+import db from "../../firebase";
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
@@ -13,15 +15,19 @@ const CategoriesComp = () => {
 
     const dispatch = useDispatch();
     const categories = useSelector((state) => state.categories)
-    const [newCategory, setNewCategory] = useState('');
+    const [name, setName] = useState('');
 
-    const addNewCategory = () => {
-        if (newCategory.trim() !== '') {
-            dispatch({
-                type: 'ADD_NEW_CATEGORY',
-                payload: {id: uuidv4(), name: newCategory}
-            });
-            setNewCategory('');
+    const addNewCategory = async () => {
+        if (name.trim() !== '') {
+            const newCategory = { 
+                name: name,
+            }
+            await addDoc(collection(db, "Categories"),newCategory)
+            // dispatch({
+            //     type: 'ADD_NEW_CATEGORY',
+            //     payload: newCategory
+            // });
+            setName('');
         }
     }
     return (
@@ -62,9 +68,9 @@ const CategoriesComp = () => {
                         label="Add new category"
                         name="newCategory"
                         autoComplete="newCategory"
-                        value={newCategory}
+                        value={name}
                         sx={{ minWidth: '100%', marginRight: '16px' }}
-                        onChange={e => setNewCategory(e.target.value)}
+                        onChange={e => setName(e.target.value)}
                     />
                     <Button
                         variant="contained"

@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { updateDoc, collection, doc, deleteDoc } from "firebase/firestore";
+import db from "../../firebase";
+
 import Box from "@mui/material/Box";
 import { useDispatch } from "react-redux";
 import Typography from "@mui/material/Typography";
@@ -10,21 +13,22 @@ const CategoryComp = ({ category }) => {
   const [categoryData, setCategoryData] = useState(category);
   const dispatch = useDispatch();
 
-  const handleUpdate = () => {
+  const handleUpdate = async () => {
     if (updateMode) {
-      dispatch({
-        type: "UPDATE_CATEGORY",
-        payload: categoryData,
-      });
+      const { id, ...dataToUpdate } = categoryData; 
+      const docRef = doc(db, "Categories", id);
+      await updateDoc(docRef, dataToUpdate);
+      // dispatch({
+      //   type: "UPDATE_CATEGORY",
+      //   payload: categoryData,
+      // });
     }
     setUpdateMode(!updateMode);
   };
 
-  const handleRemove = () => {
-    dispatch({
-      type: "REMOVE_CATEGORY",
-      payload: categoryData.id,
-    });
+  const handleRemove = async () => {
+    const docRef = doc(db, "Categories", categoryData.id);
+    await deleteDoc(docRef);
   };
 
   return (

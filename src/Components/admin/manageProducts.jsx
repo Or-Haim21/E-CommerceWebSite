@@ -1,23 +1,20 @@
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import ProductComp from "./product";
-import { useDispatch, useSelector } from "react-redux";
-import { v4 as uuidv4 } from "uuid";
+import { useSelector } from "react-redux";
+import NewProductDialogComp from "./newProductDialog"; // Import the new component
 
 const ManageProductsComp = () => {
-  const dispatch = useDispatch();
   const products = useSelector((state) => state.products);
-  const categories = useSelector((state) => state.categories);
+  const categories = useSelector((state) => state.categories); // Categories from Redux store
 
-  const addNewProduct = (product) => {
-    dispatch({
-      type: "ADD_NEW_PRODUCT",
-      payload: { id: uuidv4() },
-    });
-  };
+  const [open, setOpen] = useState(false); // Modal state
+
+  const handleOpen = () => setOpen(true); // Open modal
+  const handleClose = () => setOpen(false); // Close modal
 
   return (
-    <Container component="main" sx={{ width: "100%", minWidth: "100%" }}>
+    <Container component="main" sx={{ width: "100%", minWidth: "100%", marginBottom:'20px' }}>
       <Box
         sx={{
           display: "flex",
@@ -53,10 +50,17 @@ const ManageProductsComp = () => {
               backgroundColor: "#FFD55F",
             },
           }}
-          onClick={addNewProduct}
+          onClick={handleOpen} // Open the modal
         >
-          Add New Product
+          Add New
         </Button>
+
+        {/* Use AddNewProductDialog component */}
+        <NewProductDialogComp
+          open={open}
+          handleClose={handleClose}
+          categories={categories} // Pass categories as props
+        />
       </Box>
     </Container>
   );
