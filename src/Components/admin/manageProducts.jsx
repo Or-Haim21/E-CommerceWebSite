@@ -2,16 +2,16 @@ import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import React, { useState } from "react";
 import ProductComp from "./product";
 import { useSelector } from "react-redux";
-import NewProductDialogComp from "./newProductDialog"; // Import the new component
+import NewProductDialogComp from "./newProductDialog"; 
 
 const ManageProductsComp = () => {
   const products = useSelector((state) => state.products);
-  const categories = useSelector((state) => state.categories); // Categories from Redux store
+  const categories = useSelector((state) => state.categories); 
 
-  const [open, setOpen] = useState(false); // Modal state
+  const [open, setOpen] = useState(false); 
 
-  const handleOpen = () => setOpen(true); // Open modal
-  const handleClose = () => setOpen(false); // Close modal
+  const handleOpen = () => setOpen(true); 
+  const handleClose = () => setOpen(false); 
 
   return (
     <Container component="main" sx={{ width: "100%", minWidth: "100%", marginBottom:'20px' }}>
@@ -30,7 +30,7 @@ const ManageProductsComp = () => {
         <Box>
           <Grid container sx={{ width: "100%" }}>
             {products.map((product) => (
-              <Grid item xs={12} sm={6} md={6} key={product.id}>
+              <Grid item xs={12} sm={12} md={12} key={product.id}>
                 <ProductComp
                   key={product.id}
                   product={product}
@@ -50,16 +50,16 @@ const ManageProductsComp = () => {
               backgroundColor: "#FFD55F",
             },
           }}
-          onClick={handleOpen} // Open the modal
+          onClick={handleOpen} 
         >
           Add New
         </Button>
 
-        {/* Use AddNewProductDialog component */}
+        
         <NewProductDialogComp
           open={open}
           handleClose={handleClose}
-          categories={categories} // Pass categories as props
+          categories={categories} 
         />
       </Box>
     </Container>

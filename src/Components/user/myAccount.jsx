@@ -9,14 +9,13 @@ import {
   Tooltip,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { updateDoc, collection, doc } from "firebase/firestore";
 import db from "../../firebase";
 import { useLocation } from "react-router-dom";
 
 const MyAccountComp = () => {
   const location = useLocation();
-  const dispatch = useDispatch();
   let { currentUser } = location.state || {};
   const [userData, setUserData] = useState({});
   const users = useSelector((state) => state.users);

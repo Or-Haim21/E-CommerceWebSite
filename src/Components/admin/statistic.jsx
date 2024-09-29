@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import { Box, Typography, MenuItem, Select } from "@mui/material";
 
 const StatisticComp = () => {
-  const colors = ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"];
   const orders = useSelector((state) => state.orders);
   const users = useSelector((state) => state.users).filter(
     (user) => user.type === "customer"
@@ -14,6 +13,23 @@ const StatisticComp = () => {
   const [products, setProducts] = useState([]);
   const [selectedCustomer, setSelectedCustomer] = useState("All");
 
+  useEffect(() => {
+    console.log("products per customer:", productsPerCustomers);
+    const series = [
+      {
+        data: productsPerCustomers.map((item) => item.value),
+      },
+    ];
+
+    console.log("series:", series);
+    const xAxis = [
+      {
+        data: productsPerCustomers.map((item) => item.label),
+        scaleType: "band",
+      },
+    ];
+    console.log("xAxis:", xAxis);
+  }, [productsPerCustomers]);
 
   useEffect(() => {
     const selectedData =
@@ -31,14 +47,12 @@ const StatisticComp = () => {
         existingProduct.value += order.qty;
       } else {
         productList.push({
-          category: order.product,
+          label: order.product,
           value: order.qty,
         });
       }
     });
-
     setProductsPerCustomers(productList);
-
   }, [selectedCustomer, products]);
 
   useEffect(() => {
@@ -71,7 +85,7 @@ const StatisticComp = () => {
     <Box
       sx={{
         display: "flex",
-        flexDirection: "row",
+        flexDirection: "column",
         alignItems: "center",
         justifyContent: "space-around",
         marginTop: "100px",
@@ -87,9 +101,9 @@ const StatisticComp = () => {
           alignItems: "center",
           backgroundColor: "#e5e7e9",
           borderRadius: "10px",
-          width: "40%",
+          width: "60%",
           height: "500px",
-          paddingTop: "30px",
+          margin: "30px",
           color: "#191919",
         }}
       >
@@ -100,7 +114,7 @@ const StatisticComp = () => {
           series={[
             {
               data: [...products],
-              innerRadius: 30,
+              innerRadius: 60,
               outerRadius: 120,
               paddingAngle: 5,
               cornerRadius: 5,
@@ -110,7 +124,7 @@ const StatisticComp = () => {
               cy: 180,
             },
           ]}
-          width={450} 
+          width={450}
           height={400}
         />
       </Box>
@@ -124,9 +138,9 @@ const StatisticComp = () => {
           alignItems: "center",
           backgroundColor: "#e5e7e9",
           borderRadius: "10px",
-          width: "40%",
+          width: "60%",
           height: "500px",
-          paddingTop: "30px",
+          margin: "30px",
 
           color: "#191919",
         }}
@@ -152,17 +166,20 @@ const StatisticComp = () => {
         <BarChart
           series={[
             {
-              data: productsPerCustomers.map((item) => item.value), 
+              data: productsPerCustomers.map((item) => item.value),
             },
           ]}
           xAxis={[
             {
-              data: productsPerCustomers.map((item) => item.category),
+              data: productsPerCustomers.map((item) => item.label),
               scaleType: "band",
+              categoryGapRatio: 0.3, // Decreased gap ratio for tighter spacing
+              tickPlacement: "middle",
             },
           ]}
-          width={450}
-          height={300}
+          skipAnimation={false}
+          height={500}
+          barWidth={30} // Set the width of the bars if supported
         />
       </Box>
     </Box>

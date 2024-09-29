@@ -58,7 +58,7 @@ const ProductComp = ({ product, categories }) => {
   }, [product]);
 
   return (
-    <Container component="main" sx={{ marginBottom: "20px" }}>
+    <Container component="main" sx={{ marginBottom: "50px"}}>
       <Box
         sx={{
           display: "flex",

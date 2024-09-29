@@ -3,7 +3,6 @@ import { updateDoc, collection, doc, deleteDoc } from "firebase/firestore";
 import db from "../../firebase";
 
 import Box from "@mui/material/Box";
-import { useDispatch } from "react-redux";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { TextField } from "@mui/material";
@@ -11,7 +10,6 @@ import { TextField } from "@mui/material";
 const CategoryComp = ({ category }) => {
   const [updateMode, setUpdateMode] = useState(false);
   const [categoryData, setCategoryData] = useState(category);
-  const dispatch = useDispatch();
 
   const handleUpdate = async () => {
     if (updateMode) {

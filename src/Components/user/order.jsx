@@ -1,18 +1,15 @@
 import { Box } from '@mui/material';
 import { useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { updateDoc, addDoc, collection, doc } from "firebase/firestore";
 import db from "../../firebase";
 import ProductsViewComp from './productsView';
 import CartComp from './cart';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 
 const OrderComp = () => {
 
-    const dispatch = useDispatch();
-    const location = useLocation();
-    //const { currentUser } = location.state || {};
     const { username } = useParams();
     const products = useSelector((state) => state.products);
 

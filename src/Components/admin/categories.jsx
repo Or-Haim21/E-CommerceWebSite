@@ -7,13 +7,11 @@ import Box from '@mui/material/Box'
 import CategoryComp from './category'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
-import { useDispatch, useSelector } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
+import {useSelector } from 'react-redux';
 
 
 const CategoriesComp = () => {
 
-    const dispatch = useDispatch();
     const categories = useSelector((state) => state.categories)
     const [name, setName] = useState('');
 

@@ -30,7 +30,7 @@ const AdminModeComp = () => {
   };
 
   return (
-    <Box sx={{width: "100%" }}>
+    <Box sx={{ width: "100%" }}>
       <Box
         sx={{
           marginBottom: 4,
@@ -41,8 +41,8 @@ const AdminModeComp = () => {
           alignItems: "flex-start",
         }}
       >
-        <Typography component="h5" variant="h5" sx={{ margin: 1 }}>
-          Hello Admin
+        <Typography component="h5" variant="h5" sx={{ margin: 5 }}>
+          Management Board
         </Typography>
         <Box
           sx={{
