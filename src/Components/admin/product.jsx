@@ -1,7 +1,6 @@
 import {Container, Box, TextField, InputLabel, TextareaAutosize, Select, MenuItem, Button,} from "@mui/material";
 import { useSelector } from "react-redux";
-import { updateDoc,doc  } from "firebase/firestore";
-import db from "../../firebase";
+import { updateDocument } from '../../firebaseServices'
 
 import React, { useEffect, useState } from "react";
 import TableComp from "../table";
@@ -31,27 +30,15 @@ const ProductComp = ({ product, categories }) => {
   };
 
   const handleSave = async () => {
-
-    if (
-      !productData.title ||
-      !productData.category ||
-      !productData.price ||
-      !productData.linkToPic
-    ) {
-      alert(
-        "Please fill all required fields: Title, Category, Price, and Link to Picture."
-      );
-      return; 
+    if (!productData.title || !productData.category || !productData.price || !productData.linkToPic) {
+        alert("Please fill all required fields: Title, Category, Price, and Link to Picture.");
+        return;
     }
 
-    const { id, ...dataToUpdate } = productData; 
-
-    const docRef = doc(db, "Products", id);
-      await updateDoc(docRef,dataToUpdate)
-    alert (
-      "The new product was saved successfully"
-    )
-  };
+    const { id, ...dataToUpdate } = productData;
+    await updateDocument("Products", id, dataToUpdate);
+    alert("The new product was saved successfully");
+};
 
   useEffect(() => {
     setProductData(product);

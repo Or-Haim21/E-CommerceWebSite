@@ -1,9 +1,5 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
-import db from '../firebase';
-import { addDoc, collection, deleteDoc, doc } from 'firebase/firestore';
-
-
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';

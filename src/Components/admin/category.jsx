@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { updateDoc, collection, doc, deleteDoc } from "firebase/firestore";
-import db from "../../firebase";
-
+import { updateDocument, deleteDocument } from '../../firebaseServices';
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -13,17 +11,15 @@ const CategoryComp = ({ category }) => {
 
   const handleUpdate = async () => {
     if (updateMode) {
-      const { id, ...dataToUpdate } = categoryData; 
-      const docRef = doc(db, "Categories", id);
-      await updateDoc(docRef, dataToUpdate);
+        const { id, ...dataToUpdate } = categoryData;
+        await updateDocument("Categories", id, dataToUpdate);
     }
     setUpdateMode(!updateMode);
-  };
+};
 
-  const handleRemove = async () => {
-    const docRef = doc(db, "Categories", categoryData.id);
-    await deleteDoc(docRef);
-  };
+const handleRemove = async () => {
+    await deleteDocument("Categories", categoryData.id);
+};
 
   return (
     <Box

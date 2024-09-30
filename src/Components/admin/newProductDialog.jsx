@@ -11,8 +11,7 @@ import {
   FormControl,
   InputLabel,
 } from "@mui/material";
-import { collection, addDoc } from "firebase/firestore"; // Firebase Firestore import
-import db from "../../firebase"; // Firebase configuration
+import { addDocument } from '../../firebaseServices'
 
 const NewProductDialogComp = ({ open, handleClose, categories }) => {
   const [newProduct, setNewProduct] = useState({
@@ -25,21 +24,21 @@ const NewProductDialogComp = ({ open, handleClose, categories }) => {
   });
 
   const handleSave = async () => {
-      if(!newProduct.title || !newProduct.category || !newProduct.price || !newProduct.linkToPic){
-        alert("Please fill all required fields: Title, Category, Price, and Link to Picture.")
+    if (!newProduct.title || !newProduct.category || !newProduct.price || !newProduct.linkToPic) {
+        alert("Please fill all required fields.");
         return;
-      }
-      await addDoc(collection(db, "Products"), newProduct); 
-      handleClose(); 
-      setNewProduct({
+    }
+    await addDocument("Products", newProduct);
+    handleClose();
+    setNewProduct({
         title: "",
         category: "",
-        description: "",  
+        description: "",
         price: 0,
         linkToPic: "",
         inStock: 0,
-      });
-  };
+    });
+};
 
   return (
     <Dialog open={open} onClose={handleClose} fullWidth>

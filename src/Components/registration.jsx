@@ -1,7 +1,6 @@
 import { useState } from "react";
 import {  useSelector } from "react-redux";
-import { addDoc, collection } from "firebase/firestore";
-import db from "../firebase";
+import {addDocument, getFormattedDate} from '../firebaseServices'
 import { useNavigate } from "react-router-dom";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
@@ -14,16 +13,6 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 
-const getFormattedCurrentDate = () => {
-  const date = new Date();
-  const formattedDate = `${date.getDate().toString().padStart(2, "0")}/${(
-    date.getMonth() + 1
-  )
-    .toString()
-    .padStart(2, "0")}/${date.getFullYear()}`;
-
-    return formattedDate;
-};
 
 const RegistrationComp = () => {
   const navigate = useNavigate();
@@ -43,32 +32,24 @@ const RegistrationComp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (
-      registrationDetails.username === "" ||
-      registrationDetails.password === ""
-    ) {
-      alert("Please enter username and password");
+    if (!registrationDetails.username || !registrationDetails.password) {
+        alert("Please enter username and password");
     } else {
-      const user = users.find(
-        (user) => user.username === registrationDetails.username
-      );
+        const user = users.find(user => user.username === registrationDetails.username);
 
-      if (user === undefined) {
-        // The username is available to use
-        const formattedDate = getFormattedCurrentDate();
-        const newUser = {
-            ...registrationDetails,
-            joinedAt: formattedDate,
-          };
-          
-        await addDoc(collection(db, "Users"),newUser)
-        alert("You registered successfully");
-        navigate("/");
-      } else {
-        alert("The username already exists!");
-      }
+        if (!user) {
+            const newUser = {
+                ...registrationDetails,
+                joinedAt: getFormattedDate(),
+            };
+            await addDocument("Users", newUser);
+            alert("You registered successfully");
+            navigate("/");
+        } else {
+            alert("The username already exists!");
+        }
     }
-  };
+};
 
   return (
     <Container component="main" maxWidth="sm">

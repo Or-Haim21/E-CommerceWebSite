@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { addDoc, collection } from "firebase/firestore";
-import db from "../../firebase";
+import { addDocument } from '../../firebaseServices';
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
@@ -17,13 +16,13 @@ const CategoriesComp = () => {
 
     const addNewCategory = async () => {
         if (name.trim() !== '') {
-            const newCategory = { 
-                name: name,
-            }
-            await addDoc(collection(db, "Categories"),newCategory)
+            const newCategory = { name };
+            await addDocument("Categories", newCategory);
             setName('');
         }
-    }
+    };
+
+    
     return (
         <Container component="main" sx={{ minWidth: '100%' }}>
             <Box

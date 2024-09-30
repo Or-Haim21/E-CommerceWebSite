@@ -14,24 +14,6 @@ const StatisticComp = () => {
   const [selectedCustomer, setSelectedCustomer] = useState("All");
 
   useEffect(() => {
-    console.log("products per customer:", productsPerCustomers);
-    const series = [
-      {
-        data: productsPerCustomers.map((item) => item.value),
-      },
-    ];
-
-    console.log("series:", series);
-    const xAxis = [
-      {
-        data: productsPerCustomers.map((item) => item.label),
-        scaleType: "band",
-      },
-    ];
-    console.log("xAxis:", xAxis);
-  }, [productsPerCustomers]);
-
-  useEffect(() => {
     const selectedData =
       selectedCustomer === "All"
         ? orders
@@ -173,13 +155,12 @@ const StatisticComp = () => {
             {
               data: productsPerCustomers.map((item) => item.label),
               scaleType: "band",
-              categoryGapRatio: 0.3, // Decreased gap ratio for tighter spacing
+              categoryGapRatio: 0.3, 
               tickPlacement: "middle",
             },
           ]}
           skipAnimation={false}
           height={500}
-          barWidth={30} // Set the width of the bars if supported
         />
       </Box>
     </Box>

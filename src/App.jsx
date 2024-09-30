@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { collection, onSnapshot, query } from 'firebase/firestore';
-import db from './firebase';
+import { loadCollectionData } from './firebaseServices';
+
 
 import CategoriesComp from './Components/admin/categories';
 import ManageProductsComp from './Components/admin/manageProducts';
@@ -22,22 +22,11 @@ const App = () => {
 
 
   useEffect(() => {
-    const loadCollectionData = (collectionName, actionType) => {
-      const q = query(collection(db, collectionName));
-      onSnapshot(q, (querySnapshot) => {
-        const data = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        dispatch({ type: actionType, payload: data });
-      });
-    };
-  
-    loadCollectionData('Users', 'LOAD_USERS');
-    loadCollectionData('Categories', 'LOAD_CATEGORIES');
-    loadCollectionData('Products', 'LOAD_PRODUCTS');
-    loadCollectionData('Orders', 'LOAD_ORDERS');
-  }, [dispatch]);
+    loadCollectionData('Users', 'LOAD_USERS', dispatch);
+    loadCollectionData('Categories', 'LOAD_CATEGORIES', dispatch);
+    loadCollectionData('Products', 'LOAD_PRODUCTS', dispatch);
+    loadCollectionData('Orders', 'LOAD_ORDERS', dispatch);
+}, [dispatch]);
     
 
   return (

@@ -1,8 +1,7 @@
 import { Box } from '@mui/material';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { updateDoc, addDoc, collection, doc } from "firebase/firestore";
-import db from "../../firebase";
+import { addDocument, updateDocument, getFormattedDate } from '../../firebaseServices'
 import ProductsViewComp from './productsView';
 import CartComp from './cart';
 import { useSelector } from 'react-redux';
@@ -18,29 +17,24 @@ const OrderComp = () => {
 
     const handleAddNewOrders = async (orders) => {
         itemsInCart.forEach(async (order) => {
-            const date = new Date();
-            const formattedDate = `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}`;
+            const formattedDate = getFormattedDate();
             const totalPrice = order.quantity * order.price;
             const newOrder = {
-                date: formattedDate, 
+                date: formattedDate,
                 product: order.title,
                 qty: order.quantity,
                 totalPrice: totalPrice,
-                username: username
+                username: username,
             };
-            
+    
             let product = products.find(product => product.title === order.title);
-            product.inStock-=order.quantity;
-
-            const { id:prodId, ...prodToUpdate } = product; 
-            const prodDocRef = doc(db, "Products", prodId);
-            await updateDoc(prodDocRef,prodToUpdate);
-
-           await addDoc(collection(db, "Orders"),newOrder)  
-
-        })
+            product.inStock -= order.quantity;
+    
+            await updateDocument("Products", product.id, product);
+            await addDocument("Orders", newOrder);
+        });
         setItemsInCart([]);
-    }
+    };
 
     const handleAddToCart = (product) => {
         const existItem = itemsInCart.find(item => item.title === product.title);
