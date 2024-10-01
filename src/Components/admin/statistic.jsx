@@ -83,7 +83,7 @@ const StatisticComp = () => {
           alignItems: "center",
           backgroundColor: "#e5e7e9",
           borderRadius: "10px",
-          width: "60%",
+          width: "75%",
           height: "500px",
           margin: "30px",
           color: "#191919",
@@ -106,7 +106,7 @@ const StatisticComp = () => {
               cy: 180,
             },
           ]}
-          width={450}
+          width={600}
           height={400}
         />
       </Box>
@@ -120,7 +120,7 @@ const StatisticComp = () => {
           alignItems: "center",
           backgroundColor: "#e5e7e9",
           borderRadius: "10px",
-          width: "60%",
+          width: "75%",
           height: "500px",
           margin: "30px",
 
